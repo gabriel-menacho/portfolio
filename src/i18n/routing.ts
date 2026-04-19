@@ -7,4 +7,6 @@ export const routing = defineRouting({
   locales: [...locales],
   defaultLocale: "en",
   localePrefix: "always",
+  /** Use English unless the URL explicitly includes `/es` or `/pt`. */
+  localeDetection: false,
 });
