@@ -1,0 +1,77 @@
+{
+  "common": {
+    "notFound": "We could not find that page."
+  },
+  "footer": {
+    "credit": "Designed and developed by Gabriel Menacho."
+  },
+  "theme": {
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode"
+  },
+  "nav": {
+    "experience": "Experience",
+    "stack": "Stack",
+    "projects": "Projects",
+    "contact": "Contact",
+    "admin": "Admin",
+    "signIn": "Sign in",
+    "scrollToTop": "Scroll to top",
+    "language": "Language"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "resumePrimary": "Download resume",
+    "resumeGenerated": "Download ATS (generated)",
+    "resumeHint": "Harvard-style sections · ATS-friendly PDF"
+  },
+  "stack": {
+    "title": "The stack",
+    "subtitle": "Depth across frontend, backend, cloud, and mobile."
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "Roles, impact, and tooling.",
+    "present": "Present",
+    "more": "More",
+    "less": "Less"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Selected work and experiments."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Reach out for roles, collaborations, or architecture reviews.",
+    "email": "Email",
+    "location": "Base",
+    "copy": "Copy",
+    "copied": "Copied",
+    "mailto": "Open mail",
+    "panel": "Prefer a direct line? Use mail to open your client with a prefilled subject, or copy the address for your ATS portal."
+  },
+  "admin": {
+    "title": "Control room",
+    "subtitle": "Manage portfolio content.",
+    "profile": "Profile",
+    "stack": "Stack",
+    "experiences": "Experiences",
+    "projects": "Projects",
+    "signOut": "Sign out",
+    "save": "Save",
+    "saved": "Saved",
+    "error": "Something went wrong",
+    "formErrors": {
+      "generic": "Could not complete that. Check your connection and try again.",
+      "permission": "You do not have permission to do that. Sign in again if needed.",
+      "validation": "Some values could not be saved. Check the fields and try again.",
+      "session": "Your session may have expired. Sign in again.",
+      "noImage": "Choose an image file before uploading.",
+      "noPdf": "Choose a PDF file before uploading."
+    }
+  },
+  "auth": {
+    "github": "Continue with GitHub",
+    "forbidden": "This GitHub account is not allowlisted for admin."
+  }
+}

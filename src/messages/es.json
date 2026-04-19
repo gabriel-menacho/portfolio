@@ -1,0 +1,77 @@
+{
+  "common": {
+    "notFound": "No encontramos esa página."
+  },
+  "footer": {
+    "credit": "Diseñado y desarrollado por Gabriel Menacho."
+  },
+  "theme": {
+    "toLight": "Cambiar a modo claro",
+    "toDark": "Cambiar a modo oscuro"
+  },
+  "nav": {
+    "experience": "Experiencia",
+    "stack": "Stack",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "admin": "Admin",
+    "signIn": "Entrar",
+    "scrollToTop": "Volver arriba",
+    "language": "Idioma"
+  },
+  "hero": {
+    "greeting": "Hola, soy",
+    "resumePrimary": "Descargar CV",
+    "resumeGenerated": "Descargar ATS (generado)",
+    "resumeHint": "Secciones estilo Harvard · PDF compatible con ATS"
+  },
+  "stack": {
+    "title": "El stack",
+    "subtitle": "Profundidad en frontend, backend, cloud y mobile."
+  },
+  "experience": {
+    "title": "Experiencia",
+    "subtitle": "Roles, impacto y herramientas.",
+    "present": "Actualidad",
+    "more": "Más",
+    "less": "Menos"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "subtitle": "Trabajos y experimentos seleccionados."
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Escríbeme para roles, colaboraciones o revisiones de arquitectura.",
+    "email": "Correo",
+    "location": "Ubicación",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "mailto": "Abrir correo",
+    "panel": "¿Prefieres un canal directo? Usa correo para abrir tu cliente con un asunto prellenado, o copia la dirección para tu portal ATS."
+  },
+  "admin": {
+    "title": "Sala de control",
+    "subtitle": "Gestiona el contenido del portfolio.",
+    "profile": "Perfil",
+    "stack": "Stack",
+    "experiences": "Experiencias",
+    "projects": "Proyectos",
+    "signOut": "Salir",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "error": "Algo salió mal",
+    "formErrors": {
+      "generic": "No se pudo completar la acción. Revisa la conexión e inténtalo de nuevo.",
+      "permission": "No tienes permiso para hacer eso. Vuelve a iniciar sesión si hace falta.",
+      "validation": "Algunos valores no se pudieron guardar. Revisa los campos e inténtalo de nuevo.",
+      "session": "Tu sesión puede haber caducado. Vuelve a iniciar sesión.",
+      "noImage": "Elige un archivo de imagen antes de subirlo.",
+      "noPdf": "Elige un archivo PDF antes de subirlo."
+    }
+  },
+  "auth": {
+    "github": "Continuar con GitHub",
+    "forbidden": "Esta cuenta de GitHub no tiene acceso de admin."
+  }
+}

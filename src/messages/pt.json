@@ -1,0 +1,77 @@
+{
+  "common": {
+    "notFound": "Não encontramos essa página."
+  },
+  "footer": {
+    "credit": "Projetado e desenvolvido por Gabriel Menacho."
+  },
+  "theme": {
+    "toLight": "Ativar modo claro",
+    "toDark": "Ativar modo escuro"
+  },
+  "nav": {
+    "experience": "Experiência",
+    "stack": "Stack",
+    "projects": "Projetos",
+    "contact": "Contato",
+    "admin": "Admin",
+    "signIn": "Entrar",
+    "scrollToTop": "Voltar ao topo",
+    "language": "Idioma"
+  },
+  "hero": {
+    "greeting": "Olá, sou",
+    "resumePrimary": "Baixar currículo",
+    "resumeGenerated": "Baixar ATS (gerado)",
+    "resumeHint": "Seções estilo Harvard · PDF compatível com ATS"
+  },
+  "stack": {
+    "title": "O stack",
+    "subtitle": "Profundidade em frontend, backend, cloud e mobile."
+  },
+  "experience": {
+    "title": "Experiência",
+    "subtitle": "Papéis, impacto e ferramentas.",
+    "present": "Atual",
+    "more": "Mais",
+    "less": "Menos"
+  },
+  "projects": {
+    "title": "Projetos",
+    "subtitle": "Trabalhos e experimentos selecionados."
+  },
+  "contact": {
+    "title": "Contato",
+    "subtitle": "Fale comigo para vagas, colaborações ou revisões de arquitetura.",
+    "email": "E-mail",
+    "location": "Base",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "mailto": "Abrir e-mail",
+    "panel": "Prefere um canal direto? Use o e-mail para abrir seu cliente com assunto preenchido, ou copie o endereço para o portal ATS."
+  },
+  "admin": {
+    "title": "Sala de controle",
+    "subtitle": "Gerencie o conteúdo do portfolio.",
+    "profile": "Perfil",
+    "stack": "Stack",
+    "experiences": "Experiências",
+    "projects": "Projetos",
+    "signOut": "Sair",
+    "save": "Salvar",
+    "saved": "Salvo",
+    "error": "Algo deu errado",
+    "formErrors": {
+      "generic": "Não foi possível concluir a ação. Verifique a conexão e tente de novo.",
+      "permission": "Você não tem permissão para isso. Entre novamente se necessário.",
+      "validation": "Alguns valores não puderam ser salvos. Verifique os campos e tente de novo.",
+      "session": "Sua sessão pode ter expirado. Entre novamente.",
+      "noImage": "Escolha um arquivo de imagem antes de enviar.",
+      "noPdf": "Escolha um arquivo PDF antes de enviar."
+    }
+  },
+  "auth": {
+    "github": "Continuar com GitHub",
+    "forbidden": "Esta conta do GitHub não está autorizada para admin."
+  }
+}

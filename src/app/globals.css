@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* Dark: Binary Architect (default when .dark on html) */
+.dark {
+  color-scheme: dark;
+  --surface: #0b1326;
+  --surface-container-low: #131b2e;
+  --surface-container: #171f33;
+  --surface-container-high: #222a3d;
+  --surface-container-highest: #2d3449;
+  --surface-container-lowest: #060e20;
+  --on-surface: #dae2fd;
+  --on-surface-variant: #bac9cc;
+  --primary: #c3f5ff;
+  --primary-container: #00e5ff;
+  --on-primary-container: #00626e;
+  --primary-fixed-dim: #00daf3;
+  --surface-tint: #00daf3;
+  --outline-variant: #3b494c;
+  --elev-shadow: 0 8px 32px 0 rgb(0 229 255 / 0.08);
+}
+
+/* Light: same structure, high-contrast neutrals + cyan accent */
+.light {
+  color-scheme: light;
+  --surface: #f4f7fc;
+  --surface-container-low: #e8edf6;
+  --surface-container: #dfe6f2;
+  --surface-container-high: #d0d9ea;
+  --surface-container-highest: #c2cde3;
+  --surface-container-lowest: #ffffff;
+  --on-surface: #0f1629;
+  --on-surface-variant: #3d4a5c;
+  --primary: #005f6b;
+  --primary-container: #00c2dc;
+  --on-primary-container: #ffffff;
+  --primary-fixed-dim: #008799;
+  --surface-tint: #00a8bf;
+  --outline-variant: #b8c2ce;
+  --elev-shadow: 0 8px 28px 0 rgb(0 90 110 / 0.1);
+}
+
+/* Fallback when <html> has no explicit .light / .dark: match system preference */
+@media (prefers-color-scheme: light) {
+  :root:not(.dark):not(.light) {
+    color-scheme: light;
+    --surface: #f4f7fc;
+    --surface-container-low: #e8edf6;
+    --surface-container: #dfe6f2;
+    --surface-container-high: #d0d9ea;
+    --surface-container-highest: #c2cde3;
+    --surface-container-lowest: #ffffff;
+    --on-surface: #0f1629;
+    --on-surface-variant: #3d4a5c;
+    --primary: #005f6b;
+    --primary-container: #00c2dc;
+    --on-primary-container: #ffffff;
+    --primary-fixed-dim: #008799;
+    --surface-tint: #00a8bf;
+    --outline-variant: #b8c2ce;
+    --elev-shadow: 0 8px 28px 0 rgb(0 90 110 / 0.1);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.dark):not(.light) {
+    color-scheme: dark;
+    --surface: #0b1326;
+    --surface-container-low: #131b2e;
+    --surface-container: #171f33;
+    --surface-container-high: #222a3d;
+    --surface-container-highest: #2d3449;
+    --surface-container-lowest: #060e20;
+    --on-surface: #dae2fd;
+    --on-surface-variant: #bac9cc;
+    --primary: #c3f5ff;
+    --primary-container: #00e5ff;
+    --on-primary-container: #00626e;
+    --primary-fixed-dim: #00daf3;
+    --surface-tint: #00daf3;
+    --outline-variant: #3b494c;
+    --elev-shadow: 0 8px 32px 0 rgb(0 229 255 / 0.08);
+  }
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-primary-fixed-dim: var(--primary-fixed-dim);
+  --color-surface-tint: var(--surface-tint);
+  --color-outline-variant: var(--outline-variant);
+  --font-sans: var(--font-inter);
+  --font-headline: var(--font-space);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-headline {
+  font-family: var(--font-space), ui-sans-serif, system-ui, sans-serif;
+}
+
+.glass-nav {
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  backdrop-filter: blur(24px);
+}
+
+.nav-elevated {
+  box-shadow: var(--elev-shadow);
+}
