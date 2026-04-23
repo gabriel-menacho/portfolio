@@ -7,6 +7,10 @@ import {
   updateStackGroup,
   updateTechnology,
 } from "@/app/[locale]/admin/actions";
+import {
+  AdminFormSubmitButton,
+  AdminServerActionForm,
+} from "@/components/admin/admin-server-action-form";
 import { getStack } from "@/lib/data/portfolio";
 import { pickLocalized, type LocalizedText } from "@/lib/i18n-content";
 import type { Locale } from "@/i18n/routing";
@@ -50,25 +54,29 @@ export default async function AdminStackPage({ params }: Props) {
                         "No technologies"}
                     </div>
                   </div>
-                  <form action={deleteStackGroup}>
+                  <AdminServerActionForm
+                    action={deleteStackGroup}
+                    successMessage={t("admin.deleted")}
+                  >
                     <input name="id" type="hidden" value={group.id} />
                     <input name="locale" type="hidden" value={locale} />
-                    <button
-                      className="text-on-surface-variant hover:text-primary-container text-xs tracking-widest uppercase"
-                      type="submit"
+                    <AdminFormSubmitButton
+                      pendingLabel={t("admin.deleting")}
+                      variant="dangerText"
                     >
                       Delete group
-                    </button>
-                  </form>
+                    </AdminFormSubmitButton>
+                  </AdminServerActionForm>
                 </div>
                 <details className="border-outline-variant/10 mt-3 border-t pt-3">
                   <summary className="text-on-surface-variant hover:text-primary-container cursor-pointer text-xs tracking-widest uppercase">
                     Edit group
                   </summary>
-                  <form
+                  <AdminServerActionForm
                     action={updateStackGroup}
-                    className="mt-3 grid gap-3 md:grid-cols-2"
+                    successMessage={t("admin.saved")}
                   >
+                    <div className="mt-3 grid gap-3 md:grid-cols-2">
                     <input name="id" type="hidden" value={group.id} />
                     <input name="locale" type="hidden" value={locale} />
                     <label className="space-y-2 md:col-span-2">
@@ -118,14 +126,15 @@ export default async function AdminStackPage({ params }: Props) {
                       />
                     </label>
                     <div className="md:col-span-2">
-                      <button
-                        className="bg-primary-container font-headline text-on-primary-container rounded-sm px-6 py-3 text-sm font-semibold"
-                        type="submit"
+                      <AdminFormSubmitButton
+                        pendingLabel={t("admin.saving")}
+                        variant="primary"
                       >
                         {t("admin.save")}
-                      </button>
+                      </AdminFormSubmitButton>
                     </div>
-                  </form>
+                    </div>
+                  </AdminServerActionForm>
                 </details>
                 <div className="border-outline-variant/10 mt-4 space-y-3 border-t pt-4">
                   {technologies.map((tech) => (
@@ -135,25 +144,29 @@ export default async function AdminStackPage({ params }: Props) {
                     >
                       <div className="flex items-center justify-between gap-3">
                         <span>{tech.name}</span>
-                        <form action={deleteTechnology}>
+                        <AdminServerActionForm
+                          action={deleteTechnology}
+                          successMessage={t("admin.deleted")}
+                        >
                           <input name="id" type="hidden" value={tech.id} />
                           <input name="locale" type="hidden" value={locale} />
-                          <button
-                            className="text-on-surface-variant hover:text-primary-container text-xs tracking-widest uppercase"
-                            type="submit"
+                          <AdminFormSubmitButton
+                            pendingLabel={t("admin.deleting")}
+                            variant="dangerText"
                           >
                             Remove
-                          </button>
-                        </form>
+                          </AdminFormSubmitButton>
+                        </AdminServerActionForm>
                       </div>
                       <details>
                         <summary className="text-on-surface-variant hover:text-primary-container cursor-pointer text-xs tracking-widest uppercase">
                           Edit technology
                         </summary>
-                        <form
+                        <AdminServerActionForm
                           action={updateTechnology}
-                          className="mt-2 grid gap-3 md:grid-cols-3"
+                          successMessage={t("admin.saved")}
                         >
+                          <div className="mt-2 grid gap-3 md:grid-cols-3">
                           <input name="id" type="hidden" value={tech.id} />
                           <input name="locale" type="hidden" value={locale} />
                           <label className="space-y-2 md:col-span-3">
@@ -196,14 +209,15 @@ export default async function AdminStackPage({ params }: Props) {
                             />
                           </label>
                           <div className="md:col-span-3">
-                            <button
-                              className="bg-primary-container font-headline text-on-primary-container rounded-sm px-4 py-2 text-xs font-semibold"
-                              type="submit"
+                            <AdminFormSubmitButton
+                              pendingLabel={t("admin.saving")}
+                              variant="primaryCompact"
                             >
                               {t("admin.save")}
-                            </button>
+                            </AdminFormSubmitButton>
                           </div>
-                        </form>
+                          </div>
+                        </AdminServerActionForm>
                       </details>
                     </div>
                   ))}
@@ -216,7 +230,11 @@ export default async function AdminStackPage({ params }: Props) {
 
       <section className="space-y-4">
         <h2 className="font-headline text-lg font-semibold">Add group</h2>
-        <form action={createStackGroup} className="grid gap-3 md:grid-cols-2">
+        <AdminServerActionForm
+          action={createStackGroup}
+          successMessage={t("admin.saved")}
+        >
+          <div className="grid gap-3 md:grid-cols-2">
           <input name="locale" type="hidden" value={locale} />
           <label className="space-y-2 md:col-span-2">
             <span className="text-outline-variant text-xs tracking-widest uppercase">
@@ -264,19 +282,24 @@ export default async function AdminStackPage({ params }: Props) {
             />
           </label>
           <div className="md:col-span-2">
-            <button
-              className="bg-primary-container font-headline text-on-primary-container rounded-sm px-6 py-3 text-sm font-semibold"
-              type="submit"
+            <AdminFormSubmitButton
+              pendingLabel={t("admin.saving")}
+              variant="primary"
             >
               {t("admin.save")}
-            </button>
+            </AdminFormSubmitButton>
           </div>
-        </form>
+          </div>
+        </AdminServerActionForm>
       </section>
 
       <section className="space-y-4">
         <h2 className="font-headline text-lg font-semibold">Add technology</h2>
-        <form action={createTechnology} className="grid gap-3 md:grid-cols-3">
+        <AdminServerActionForm
+          action={createTechnology}
+          successMessage={t("admin.saved")}
+        >
+          <div className="grid gap-3 md:grid-cols-3">
           <input name="locale" type="hidden" value={locale} />
           <label className="space-y-2 md:col-span-3">
             <span className="text-outline-variant text-xs tracking-widest uppercase">
@@ -317,14 +340,15 @@ export default async function AdminStackPage({ params }: Props) {
             />
           </label>
           <div className="md:col-span-3">
-            <button
-              className="bg-primary-container font-headline text-on-primary-container rounded-sm px-6 py-3 text-sm font-semibold"
-              type="submit"
+            <AdminFormSubmitButton
+              pendingLabel={t("admin.saving")}
+              variant="primary"
             >
               {t("admin.save")}
-            </button>
+            </AdminFormSubmitButton>
           </div>
-        </form>
+          </div>
+        </AdminServerActionForm>
       </section>
     </div>
   );

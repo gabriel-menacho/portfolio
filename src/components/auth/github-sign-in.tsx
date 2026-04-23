@@ -28,7 +28,7 @@ export function GithubSignIn({
 
   return (
     <button
-      className="bg-primary-container font-headline text-on-primary-container inline-flex w-full items-center justify-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold disabled:opacity-60"
+      className="cursor-pointer bg-primary-container font-headline text-on-primary-container inline-flex w-full items-center justify-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60"
       disabled={pending}
       onClick={onClick}
       type="button"

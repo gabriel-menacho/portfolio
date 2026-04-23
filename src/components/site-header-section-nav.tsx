@@ -60,7 +60,7 @@ export function SiteHeaderSectionNav({
           <Link
             key={sectionId}
             className={cn(
-              "border-b-2 pb-0.5 transition-colors",
+              "cursor-pointer border-b-2 pb-0.5 transition-colors",
               active
                 ? "text-primary-container border-primary-container"
                 : "text-on-surface-variant hover:text-primary border-transparent",

@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { HeroRoleTypewriter } from "@/components/hero-role-typewriter";
 import { ResumeDownloadLink } from "@/components/resume-download-link";
 import { pickLocalized } from "@/lib/i18n-content";
 import type { Locale } from "@/i18n/routing";
@@ -7,16 +8,42 @@ import type { Profile } from "@/types/portfolio";
 import { publicObjectUrl } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 
+function linesKeyForTypewriter(lines: string[]) {
+  return lines.join("\u0000");
+}
+
+function mergeHeroHeadlineLines(
+  profileHeadline: string,
+  rawFromMessages: unknown,
+  fallback: string,
+): string[] {
+  const fromMessages = Array.isArray(rawFromMessages)
+    ? rawFromMessages.filter((item): item is string => typeof item === "string")
+    : [];
+  const trimmed = fromMessages.map((s) => s.trim()).filter(Boolean);
+  const primary = profileHeadline.trim();
+  const merged: string[] = [];
+  const seen = new Set<string>();
+  const pushUnique = (value: string) => {
+    const key = value.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    merged.push(value);
+  };
+  if (primary) pushUnique(primary);
+  for (const line of trimmed) pushUnique(line);
+  if (merged.length === 0) merged.push(fallback);
+  return merged;
+}
+
 export async function HeroSection({
   profile,
   locale,
   resumePrimaryHref,
-  resumeGeneratedHref,
 }: {
   profile: Profile | null;
   locale: Locale;
   resumePrimaryHref: string;
-  resumeGeneratedHref: string;
 }) {
   const t = await getTranslations();
   const avatarUrl = publicObjectUrl(profile?.avatar_path ?? null);
@@ -25,6 +52,15 @@ export async function HeroSection({
   const headline = pickLocalized(profile?.headline ?? null, locale);
   const bio = pickLocalized(profile?.bio ?? null, locale);
   const role = pickLocalized(profile?.role_label ?? null, locale);
+  const roleFallback = "Software engineer";
+  const headlineFallback = t("hero.headlineTypewriterFallback");
+  const rawRotating = t.raw("hero.roleRotating");
+  const headlineLines = mergeHeroHeadlineLines(
+    headline,
+    rawRotating,
+    headlineFallback,
+  );
+  const initialHeadlineLine = headlineLines[0] ?? headlineFallback;
   const hasDisplayName = Boolean(displayName?.trim());
   const greeting = t("hero.greeting");
 
@@ -34,29 +70,26 @@ export async function HeroSection({
         <div className="z-10 md:col-span-7">
           <div className="border-primary-container bg-surface-container-high mb-6 inline-flex items-center gap-2 border-l-2 px-3 py-1">
             <span className="font-headline text-primary-fixed-dim text-xs tracking-[0.25em] uppercase">
-              {role || "Software engineer"}
+              {role || roleFallback}
             </span>
           </div>
           {hasDisplayName ? (
             <>
-              <h1
-                className={cn(
-                  "font-headline text-4xl leading-[1.08] font-bold tracking-tighter md:text-6xl lg:text-7xl",
-                  headline ? "mb-4" : "mb-8",
-                )}
-              >
+              <h1 className="font-headline text-on-surface mb-4 text-4xl leading-[1.08] font-bold tracking-tighter md:text-6xl lg:text-7xl">
                 <span className="text-on-surface">{greeting} </span>
                 <span className="text-primary-container">{displayName}</span>
               </h1>
-              {headline ? (
-                <p className="font-headline text-on-surface-variant mb-8 text-2xl leading-tight font-semibold tracking-tight md:text-4xl lg:text-5xl">
-                  {headline}
-                </p>
-              ) : null}
+              <p className="font-headline text-on-surface-variant mb-8 text-2xl leading-tight font-semibold tracking-tight md:text-4xl lg:text-5xl">
+                <HeroRoleTypewriter
+                  key={linesKeyForTypewriter(headlineLines)}
+                  initialText={initialHeadlineLine}
+                  lines={headlineLines}
+                />
+              </p>
             </>
           ) : (
             <h1 className="font-headline text-on-surface mb-8 text-4xl leading-[1.08] font-bold tracking-tighter md:text-6xl lg:text-7xl">
-              {headline || "Building reliable systems"}
+              {headline || headlineFallback}
             </h1>
           )}
           <p className="text-on-surface-variant mb-10 max-w-2xl text-base leading-relaxed md:text-lg">
@@ -72,17 +105,6 @@ export async function HeroSection({
             >
               {t("hero.resumePrimary")}
             </ResumeDownloadLink>
-            <ResumeDownloadLink
-              className="border-outline-variant/20 font-headline text-primary hover:border-primary-container hover:text-primary-container inline-flex items-center gap-2 rounded-sm border px-5 py-3 text-sm transition-colors"
-              href={resumeGeneratedHref}
-              leadingIcon="none"
-              leadingIconClassName="size-4 shrink-0"
-            >
-              {t("hero.resumeGenerated")}
-            </ResumeDownloadLink>
-            <p className="font-headline text-outline-variant max-w-[160px] text-[10px] tracking-[0.2em] uppercase">
-              {t("hero.resumeHint")}
-            </p>
           </div>
         </div>
         <div className="relative mx-auto w-full max-w-xs md:col-span-5 md:mx-0 md:max-w-md">

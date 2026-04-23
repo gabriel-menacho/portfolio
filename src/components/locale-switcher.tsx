@@ -102,7 +102,7 @@ function LocaleSwitcherImpl({ className }: { className?: string }) {
                   role="option"
                   aria-selected={selected}
                   className={cn(
-                    "hover:bg-surface-container-high w-full px-3 py-2 text-left transition-colors",
+                    "cursor-pointer hover:bg-surface-container-high w-full px-3 py-2 text-left transition-colors",
                     selected && "bg-surface-container-high text-primary-container",
                   )}
                   onClick={() => {

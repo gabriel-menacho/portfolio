@@ -58,14 +58,13 @@ export default async function HomePage({ params, searchParams }: Props) {
   const [profile, stack, experiences, projects] = await Promise.all([
     getProfile(),
     getStack(),
-    getExperiences(),
-    getProjects(),
+    getExperiences({ publicOnly: true }),
+    getProjects({ publicOnly: true }),
   ]);
 
   const overrideUrl = publicObjectUrl(profile?.resume_override_path ?? null);
   const generatedUrl = `/api/resume/pdf?locale=${loc}`;
   const resumePrimaryHref = overrideUrl ?? generatedUrl;
-  const resumeGeneratedHref = generatedUrl;
   const showSocialRail = Boolean(
     profile?.email?.trim() ||
       profile?.social_github ||
@@ -84,7 +83,6 @@ export default async function HomePage({ params, searchParams }: Props) {
           <HeroSection
             locale={loc}
             profile={profile}
-            resumeGeneratedHref={resumeGeneratedHref}
             resumePrimaryHref={resumePrimaryHref}
           />
           <StackSection groups={stack} locale={loc} />

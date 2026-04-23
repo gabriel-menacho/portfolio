@@ -39,6 +39,7 @@ export type Experience = {
   start_date: string;
   end_date: string | null;
   sort_order: number;
+  show_on_site: boolean;
   tags: { label: string }[];
 };
 
@@ -50,5 +51,6 @@ export type Project = {
   repo_url: string | null;
   image_path: string | null;
   sort_order: number;
+  show_on_site: boolean;
   tags: { label: string }[];
 };

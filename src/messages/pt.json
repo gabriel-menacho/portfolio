@@ -22,8 +22,14 @@
   "hero": {
     "greeting": "Olá, sou",
     "resumePrimary": "Baixar currículo",
-    "resumeGenerated": "Baixar ATS (gerado)",
-    "resumeHint": "Seções estilo Harvard · PDF compatível com ATS"
+    "headlineTypewriterFallback": "Construindo sistemas confiáveis",
+    "roleRotating": [
+      "Engenheiro de software líder",
+      "Arquiteto frontend",
+      "Inovador em produtos de IA",
+      "Pensador de sistemas",
+      "Engenheiro full stack"
+    ]
   },
   "stack": {
     "title": "O stack",
@@ -60,6 +66,13 @@
     "signOut": "Sair",
     "save": "Salvar",
     "saved": "Salvo",
+    "saving": "Salvando…",
+    "deleting": "Excluindo…",
+    "deleted": "Excluído",
+    "uploading": "Enviando…",
+    "cleared": "Removido",
+    "showOnSite": "Visível no site",
+    "hiddenFromSite": "Oculto no site",
     "error": "Algo deu errado",
     "formErrors": {
       "generic": "Não foi possível concluir a ação. Verifique a conexão e tente de novo.",

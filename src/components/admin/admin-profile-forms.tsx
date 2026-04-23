@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import {
   clearResumeOverride,
@@ -9,18 +9,61 @@ import {
   uploadResumeOverride,
 } from "@/app/[locale]/admin/actions";
 import { initialProfileActionState } from "@/app/[locale]/admin/profile-action-state";
+import { useAdminSnackbar } from "@/components/admin/admin-snackbar";
 import { publicObjectUrl } from "@/lib/storage";
+import { cn } from "@/lib/utils";
 import type { Profile } from "@/types/portfolio";
 
-function FormAlert({ message }: { message: string | null }) {
-  if (!message) return null;
+function useSubmitSnackbarFeedback(
+  isPending: boolean,
+  error: string | null,
+  successMessage: string,
+) {
+  const { showSnackbar } = useAdminSnackbar();
+  const prevPending = useRef(false);
+  const armed = useRef(false);
+
+  useEffect(() => {
+    if (isPending) armed.current = true;
+  }, [isPending]);
+
+  useEffect(() => {
+    if (prevPending.current && !isPending && armed.current) {
+      armed.current = false;
+      if (error) {
+        showSnackbar({ variant: "error", message: error });
+      } else {
+        showSnackbar({ variant: "success", message: successMessage });
+      }
+    }
+    prevPending.current = isPending;
+  }, [error, isPending, showSnackbar, successMessage]);
+}
+
+function PendingSubmitButton({
+  isPending,
+  pendingLabel,
+  className,
+  children,
+}: {
+  isPending: boolean;
+  pendingLabel: string;
+  className: string;
+  children: React.ReactNode;
+}) {
   return (
-    <p
-      className="rounded-sm border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-700 dark:text-red-300"
-      role="alert"
+    <button
+      aria-busy={isPending}
+      className={cn(
+        "cursor-pointer",
+        className,
+        isPending && "cursor-wait opacity-80",
+      )}
+      disabled={isPending}
+      type="submit"
     >
-      {message}
-    </p>
+      {isPending ? pendingLabel : children}
+    </button>
   );
 }
 
@@ -74,27 +117,35 @@ export function AdminProfileForms({
   const role = p?.role_label;
   const locJson = p?.location;
 
-  const [profileState, profileAction] = useActionState(
+  const [profileState, profileAction, profilePending] = useActionState(
     updateProfile,
     initialProfileActionState,
   );
-  const [avatarState, avatarAction] = useActionState(
+  const [avatarState, avatarAction, avatarPending] = useActionState(
     uploadAvatar,
     initialProfileActionState,
   );
-  const [resumeState, resumeAction] = useActionState(
+  const [resumeState, resumeAction, resumePending] = useActionState(
     uploadResumeOverride,
     initialProfileActionState,
   );
-  const [clearState, clearAction] = useActionState(
+  const [clearState, clearAction, clearPending] = useActionState(
     clearResumeOverride,
     initialProfileActionState,
   );
 
+  useSubmitSnackbarFeedback(
+    profilePending,
+    profileState.error,
+    t("saved"),
+  );
+  useSubmitSnackbarFeedback(avatarPending, avatarState.error, t("saved"));
+  useSubmitSnackbarFeedback(resumePending, resumeState.error, t("saved"));
+  useSubmitSnackbarFeedback(clearPending, clearState.error, t("cleared"));
+
   return (
     <>
       <form action={profileAction} className="space-y-8">
-        <FormAlert message={profileState.error} />
         <input name="locale" type="hidden" value={locale} />
         <LocalizedBlock label="Display name" name="display_name" values={dn} />
         <LocalizedBlock label="Headline" name="headline" values={hl} />
@@ -138,12 +189,13 @@ export function AdminProfileForms({
           </label>
         </div>
 
-        <button
+        <PendingSubmitButton
           className="bg-primary-container font-headline text-on-primary-container rounded-sm px-6 py-3 text-sm font-semibold"
-          type="submit"
+          isPending={profilePending}
+          pendingLabel={t("saving")}
         >
           {t("save")}
-        </button>
+        </PendingSubmitButton>
       </form>
 
       <div className="grid gap-8 md:grid-cols-2">
@@ -153,15 +205,15 @@ export function AdminProfileForms({
             Current: {publicObjectUrl(p?.avatar_path ?? null) ?? "none"}
           </p>
           <form action={avatarAction} className="mt-4 space-y-3">
-            <FormAlert message={avatarState.error} />
             <input name="locale" type="hidden" value={locale} />
             <input accept="image/*" name="avatar" required type="file" />
-            <button
+            <PendingSubmitButton
               className="border-outline-variant/20 font-headline hover:border-primary-container rounded-sm border px-4 py-2 text-xs tracking-widest uppercase"
-              type="submit"
+              isPending={avatarPending}
+              pendingLabel={t("uploading")}
             >
               Upload
-            </button>
+            </PendingSubmitButton>
           </form>
         </div>
 
@@ -178,7 +230,6 @@ export function AdminProfileForms({
             {publicObjectUrl(p?.resume_override_path ?? null) ?? "none"}
           </p>
           <form action={resumeAction} className="mt-4 space-y-3">
-            <FormAlert message={resumeState.error} />
             <input name="locale" type="hidden" value={locale} />
             <input
               accept="application/pdf"
@@ -186,22 +237,23 @@ export function AdminProfileForms({
               required
               type="file"
             />
-            <button
+            <PendingSubmitButton
               className="border-outline-variant/20 font-headline hover:border-primary-container rounded-sm border px-4 py-2 text-xs tracking-widest uppercase"
-              type="submit"
+              isPending={resumePending}
+              pendingLabel={t("uploading")}
             >
               Upload PDF
-            </button>
+            </PendingSubmitButton>
           </form>
           <form action={clearAction} className="mt-3 space-y-2">
-            <FormAlert message={clearState.error} />
             <input name="locale" type="hidden" value={locale} />
-            <button
+            <PendingSubmitButton
               className="text-on-surface-variant hover:text-primary-container text-xs tracking-widest uppercase"
-              type="submit"
+              isPending={clearPending}
+              pendingLabel={t("deleting")}
             >
               Clear override
-            </button>
+            </PendingSubmitButton>
           </form>
         </div>
       </div>

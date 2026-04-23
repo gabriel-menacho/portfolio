@@ -22,8 +22,14 @@
   "hero": {
     "greeting": "Hola, soy",
     "resumePrimary": "Descargar CV",
-    "resumeGenerated": "Descargar ATS (generado)",
-    "resumeHint": "Secciones estilo Harvard · PDF compatible con ATS"
+    "headlineTypewriterFallback": "Construyendo sistemas fiables",
+    "roleRotating": [
+      "Ingeniero de software líder",
+      "Arquitecto frontend",
+      "Innovador en productos de IA",
+      "Pensador de sistemas",
+      "Ingeniero full stack"
+    ]
   },
   "stack": {
     "title": "El stack",
@@ -60,6 +66,13 @@
     "signOut": "Salir",
     "save": "Guardar",
     "saved": "Guardado",
+    "saving": "Guardando…",
+    "deleting": "Eliminando…",
+    "deleted": "Eliminado",
+    "uploading": "Subiendo…",
+    "cleared": "Restablecido",
+    "showOnSite": "Visible en la web",
+    "hiddenFromSite": "Oculto en la web",
     "error": "Algo salió mal",
     "formErrors": {
       "generic": "No se pudo completar la acción. Revisa la conexión e inténtalo de nuevo.",

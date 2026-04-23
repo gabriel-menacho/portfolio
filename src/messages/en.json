@@ -22,8 +22,14 @@
   "hero": {
     "greeting": "Hi, I'm",
     "resumePrimary": "Download resume",
-    "resumeGenerated": "Download ATS (generated)",
-    "resumeHint": "Harvard-style sections · ATS-friendly PDF"
+    "headlineTypewriterFallback": "Building reliable systems",
+    "roleRotating": [
+      "Lead software engineer",
+      "Frontend architect",
+      "AI product innovator",
+      "Systems thinker",
+      "Full-stack engineer"
+    ]
   },
   "stack": {
     "title": "The stack",
@@ -60,6 +66,13 @@
     "signOut": "Sign out",
     "save": "Save",
     "saved": "Saved",
+    "saving": "Saving…",
+    "deleting": "Deleting…",
+    "deleted": "Deleted",
+    "uploading": "Uploading…",
+    "cleared": "Cleared",
+    "showOnSite": "Show on site",
+    "hiddenFromSite": "Hidden from site",
     "error": "Something went wrong",
     "formErrors": {
       "generic": "Could not complete that. Check your connection and try again.",

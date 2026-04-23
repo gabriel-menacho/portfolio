@@ -43,7 +43,7 @@ export function ThemeToggle({
     <button
       aria-label={isDark ? labelLight : labelDark}
       className={cn(
-        "border-outline-variant/20 inline-flex size-10 shrink-0 items-center justify-center rounded-sm border",
+        "cursor-pointer border-outline-variant/20 inline-flex size-10 shrink-0 items-center justify-center rounded-sm border",
         "text-primary-fixed-dim hover:border-primary-container hover:text-primary-container transition-colors",
       )}
       onClick={() => {

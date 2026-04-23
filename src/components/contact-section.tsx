@@ -76,7 +76,7 @@ export function ContactSection({
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
             <button
-              className="border-outline-variant/20 font-headline hover:border-primary-container hover:text-primary-container inline-flex items-center gap-2 rounded-sm border px-4 py-2 text-sm"
+              className="cursor-pointer border-outline-variant/20 font-headline hover:border-primary-container hover:text-primary-container inline-flex items-center gap-2 rounded-sm border px-4 py-2 text-sm disabled:cursor-not-allowed"
               disabled={!email}
               onClick={copyEmail}
               type="button"
@@ -90,7 +90,7 @@ export function ContactSection({
             </button>
             <a
               className={cn(
-                "bg-primary-container font-headline text-on-primary-container inline-flex items-center gap-2 rounded-sm px-5 py-2 text-sm font-semibold",
+                "cursor-pointer bg-primary-container font-headline text-on-primary-container inline-flex items-center gap-2 rounded-sm px-5 py-2 text-sm font-semibold",
                 !email && "pointer-events-none opacity-40",
               )}
               href={mailto}

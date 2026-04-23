@@ -18,8 +18,8 @@ export async function GET(request: Request) {
 
   const profile = await getProfile();
   const stack = await getStack();
-  const experiences = await getExperiences();
-  const projects = await getProjects();
+  const experiences = await getExperiences({ publicOnly: true });
+  const projects = await getProjects({ publicOnly: true });
 
   const name =
     pickLocalized(profile?.display_name ?? null, locale) || "Profile";

@@ -15,6 +15,10 @@ function localized(formData: FormData, key: string) {
   };
 }
 
+function formCheckboxOn(formData: FormData, name: string) {
+  return formData.get(name) === "on";
+}
+
 function mapProfileActionError(
   e: unknown,
   t: Awaited<ReturnType<typeof getTranslations>>,
@@ -313,6 +317,7 @@ export async function createExperience(formData: FormData) {
       start_date: String(formData.get("start_date") ?? ""),
       end_date: String(formData.get("end_date") ?? "") || null,
       sort_order: Number(formData.get("sort_order") ?? 0),
+      show_on_site: formCheckboxOn(formData, "show_on_site"),
     })
     .select("id")
     .single();
@@ -358,6 +363,7 @@ export async function updateExperience(formData: FormData) {
       start_date: String(formData.get("start_date") ?? ""),
       end_date: String(formData.get("end_date") ?? "") || null,
       sort_order: Number(formData.get("sort_order") ?? 0),
+      show_on_site: formCheckboxOn(formData, "show_on_site"),
     })
     .eq("id", id);
   if (error) throw error;
@@ -389,6 +395,22 @@ export async function updateExperience(formData: FormData) {
   revalidatePath(`/${locale}/admin/experiences`);
 }
 
+export async function setExperienceShowOnSite(formData: FormData) {
+  const locale = String(formData.get("locale") ?? "en");
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("experiences")
+    .update({ show_on_site: formCheckboxOn(formData, "show_on_site") })
+    .eq("id", id);
+  if (error) throw error;
+
+  revalidatePath(`/${locale}`);
+  revalidatePath(`/${locale}/admin/experiences`);
+}
+
 export async function deleteExperience(formData: FormData) {
   const locale = String(formData.get("locale") ?? "en");
   const id = String(formData.get("id") ?? "");
@@ -413,6 +435,7 @@ export async function createProject(formData: FormData) {
       repo_url: String(formData.get("repo_url") ?? "").trim() || null,
       image_path: String(formData.get("image_path") ?? "").trim() || null,
       sort_order: Number(formData.get("sort_order") ?? 0),
+      show_on_site: formCheckboxOn(formData, "show_on_site"),
     })
     .select("id")
     .single();
@@ -455,6 +478,7 @@ export async function updateProject(formData: FormData) {
       repo_url: String(formData.get("repo_url") ?? "").trim() || null,
       image_path: String(formData.get("image_path") ?? "").trim() || null,
       sort_order: Number(formData.get("sort_order") ?? 0),
+      show_on_site: formCheckboxOn(formData, "show_on_site"),
     })
     .eq("id", id);
   if (error) throw error;
@@ -481,6 +505,22 @@ export async function updateProject(formData: FormData) {
       .insert(rows);
     if (tagError) throw tagError;
   }
+
+  revalidatePath(`/${locale}`);
+  revalidatePath(`/${locale}/admin/projects`);
+}
+
+export async function setProjectShowOnSite(formData: FormData) {
+  const locale = String(formData.get("locale") ?? "en");
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("projects")
+    .update({ show_on_site: formCheckboxOn(formData, "show_on_site") })
+    .eq("id", id);
+  if (error) throw error;
 
   revalidatePath(`/${locale}`);
   revalidatePath(`/${locale}/admin/projects`);

@@ -60,7 +60,7 @@ export function ResumeDownloadLink({
 
   if (!useClientFetch) {
     return (
-      <a className={className} download href={href}>
+      <a className={cn("cursor-pointer", className)} download href={href}>
         {leadingIcon === "download" ? (
           <Download className={leadingIconClassName} />
         ) : null}
@@ -77,7 +77,7 @@ export function ResumeDownloadLink({
   return (
     <button
       aria-busy={pending}
-      className={cn(className, pending && "cursor-wait")}
+      className={cn("cursor-pointer", className, pending && "cursor-wait")}
       disabled={pending}
       onClick={onClick}
       type="button"

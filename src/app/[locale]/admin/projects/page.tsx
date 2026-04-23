@@ -2,8 +2,14 @@ import { getTranslations } from "next-intl/server";
 import {
   createProject,
   deleteProject,
+  setProjectShowOnSite,
   updateProject,
 } from "@/app/[locale]/admin/actions";
+import {
+  AdminFormSubmitButton,
+  AdminServerActionForm,
+} from "@/components/admin/admin-server-action-form";
+import { AdminSiteVisibilityToggleForm } from "@/components/admin/admin-site-visibility-toggle-form";
 import { getProjects } from "@/lib/data/portfolio";
 import { pickLocalized, type LocalizedText } from "@/lib/i18n-content";
 import type { Locale } from "@/i18n/routing";
@@ -40,7 +46,7 @@ export default async function AdminProjectsPage({ params }: Props) {
                 key={p.id}
               >
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <div className="font-headline text-base font-semibold">
                       {pickLocalized(p.title, loc)}
                     </div>
@@ -50,26 +56,45 @@ export default async function AdminProjectsPage({ params }: Props) {
                     <div className="text-on-surface-variant mt-2 text-xs">
                       {p.url ?? p.repo_url ?? ""}
                     </div>
+                    {!p.show_on_site ? (
+                      <p className="text-primary-container mt-2 text-xs">
+                        {t("admin.hiddenFromSite")}
+                      </p>
+                    ) : null}
                   </div>
-                  <form action={deleteProject}>
-                    <input name="id" type="hidden" value={p.id} />
-                    <input name="locale" type="hidden" value={locale} />
-                    <button
-                      className="text-on-surface-variant hover:text-primary-container text-xs tracking-widest uppercase"
-                      type="submit"
+                  <div className="flex shrink-0 flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-end">
+                    <AdminSiteVisibilityToggleForm
+                      action={setProjectShowOnSite}
+                      id={p.id}
+                      label={t("admin.showOnSite")}
+                      locale={locale}
+                      savedMessage={t("admin.saved")}
+                      showOnSite={p.show_on_site}
+                    />
+                    <AdminServerActionForm
+                      action={deleteProject}
+                      successMessage={t("admin.deleted")}
                     >
-                      Delete
-                    </button>
-                  </form>
+                      <input name="id" type="hidden" value={p.id} />
+                      <input name="locale" type="hidden" value={locale} />
+                      <AdminFormSubmitButton
+                        pendingLabel={t("admin.deleting")}
+                        variant="dangerText"
+                      >
+                        Delete
+                      </AdminFormSubmitButton>
+                    </AdminServerActionForm>
+                  </div>
                 </div>
                 <details className="border-outline-variant/10 border-t pt-3">
                   <summary className="text-on-surface-variant hover:text-primary-container cursor-pointer text-xs tracking-widest uppercase">
                     Edit
                   </summary>
-                  <form
+                  <AdminServerActionForm
                     action={updateProject}
-                    className="mt-3 grid gap-3 md:grid-cols-2"
+                    successMessage={t("admin.saved")}
                   >
+                    <div className="mt-3 grid gap-3 md:grid-cols-2">
                     <input name="id" type="hidden" value={p.id} />
                     <input name="locale" type="hidden" value={locale} />
                     <Localized name="title" rows={2} values={p.title} />
@@ -133,15 +158,28 @@ export default async function AdminProjectsPage({ params }: Props) {
                         type="number"
                       />
                     </label>
+                    <label className="flex cursor-pointer items-center gap-2 md:col-span-2">
+                      <input
+                        className="accent-primary-container size-4"
+                        defaultChecked={p.show_on_site}
+                        name="show_on_site"
+                        type="checkbox"
+                        value="on"
+                      />
+                      <span className="text-outline-variant text-xs tracking-widest uppercase">
+                        {t("admin.showOnSite")}
+                      </span>
+                    </label>
                     <div className="md:col-span-2">
-                      <button
-                        className="bg-primary-container font-headline text-on-primary-container rounded-sm px-6 py-3 text-sm font-semibold"
-                        type="submit"
+                      <AdminFormSubmitButton
+                        pendingLabel={t("admin.saving")}
+                        variant="primary"
                       >
                         {t("admin.save")}
-                      </button>
+                      </AdminFormSubmitButton>
                     </div>
-                  </form>
+                    </div>
+                  </AdminServerActionForm>
                 </details>
               </div>
             ))
@@ -151,7 +189,11 @@ export default async function AdminProjectsPage({ params }: Props) {
 
       <section className="space-y-4">
         <h2 className="font-headline text-lg font-semibold">Add project</h2>
-        <form action={createProject} className="grid gap-3 md:grid-cols-2">
+        <AdminServerActionForm
+          action={createProject}
+          successMessage={t("admin.saved")}
+        >
+          <div className="grid gap-3 md:grid-cols-2">
           <input name="locale" type="hidden" value={locale} />
           <Localized name="title" rows={2} />
           <Localized name="description" rows={5} />
@@ -206,15 +248,28 @@ export default async function AdminProjectsPage({ params }: Props) {
               type="number"
             />
           </label>
+          <label className="flex cursor-pointer items-center gap-2 md:col-span-2">
+            <input
+              className="accent-primary-container size-4"
+              defaultChecked
+              name="show_on_site"
+              type="checkbox"
+              value="on"
+            />
+            <span className="text-outline-variant text-xs tracking-widest uppercase">
+              {t("admin.showOnSite")}
+            </span>
+          </label>
           <div className="md:col-span-2">
-            <button
-              className="bg-primary-container font-headline text-on-primary-container rounded-sm px-6 py-3 text-sm font-semibold"
-              type="submit"
+            <AdminFormSubmitButton
+              pendingLabel={t("admin.saving")}
+              variant="primary"
             >
               {t("admin.save")}
-            </button>
+            </AdminFormSubmitButton>
           </div>
-        </form>
+          </div>
+        </AdminServerActionForm>
       </section>
     </div>
   );

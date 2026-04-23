@@ -68,7 +68,7 @@ export function ExpandableText({
       {needsToggle ? (
         <button
           aria-expanded={expanded}
-          className="font-headline text-primary-container hover:text-primary mt-3 text-sm font-semibold tracking-wide underline-offset-4 hover:underline"
+          className="cursor-pointer font-headline text-primary-container hover:text-primary mt-3 text-sm font-semibold tracking-wide underline-offset-4 hover:underline"
           onClick={() => setExpanded((v) => !v)}
           type="button"
         >

@@ -46,9 +46,11 @@ export async function getStack(): Promise<
   }));
 }
 
-export async function getExperiences(): Promise<Experience[]> {
+export async function getExperiences(options?: {
+  publicOnly?: boolean;
+}): Promise<Experience[]> {
   const supabase = await createClient();
-  const { data: rows, error } = await supabase
+  let query = supabase
     .from("experiences")
     .select(
       `
@@ -57,6 +59,10 @@ export async function getExperiences(): Promise<Experience[]> {
     `,
     )
     .order("sort_order", { ascending: true });
+  if (options?.publicOnly) {
+    query = query.eq("show_on_site", true);
+  }
+  const { data: rows, error } = await query;
   if (error || !rows) return [];
 
   return (rows as unknown as Array<Record<string, unknown>>).map((row) => {
@@ -69,13 +75,20 @@ export async function getExperiences(): Promise<Experience[]> {
         ?.slice()
         .sort((a, b) => a.sort_order - b.sort_order)
         .map((t) => ({ label: t.label })) ?? [];
-    return { ...(rest as Omit<Experience, "tags">), tags };
+    const base = rest as Omit<Experience, "tags"> & { show_on_site?: boolean };
+    return {
+      ...base,
+      show_on_site: base.show_on_site !== false,
+      tags,
+    };
   });
 }
 
-export async function getProjects(): Promise<Project[]> {
+export async function getProjects(options?: {
+  publicOnly?: boolean;
+}): Promise<Project[]> {
   const supabase = await createClient();
-  const { data: rows, error } = await supabase
+  let query = supabase
     .from("projects")
     .select(
       `
@@ -84,6 +97,10 @@ export async function getProjects(): Promise<Project[]> {
     `,
     )
     .order("sort_order", { ascending: true });
+  if (options?.publicOnly) {
+    query = query.eq("show_on_site", true);
+  }
+  const { data: rows, error } = await query;
   if (error || !rows) return [];
 
   return (rows as unknown as Array<Record<string, unknown>>).map((row) => {
@@ -93,6 +110,11 @@ export async function getProjects(): Promise<Project[]> {
         ?.slice()
         .sort((a, b) => a.sort_order - b.sort_order)
         .map((t) => ({ label: t.label })) ?? [];
-    return { ...(rest as Omit<Project, "tags">), tags };
+    const base = rest as Omit<Project, "tags"> & { show_on_site?: boolean };
+    return {
+      ...base,
+      show_on_site: base.show_on_site !== false,
+      tags,
+    };
   });
 }

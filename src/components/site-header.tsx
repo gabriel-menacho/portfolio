@@ -31,7 +31,7 @@ export async function SiteHeader({
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-8 md:px-12 lg:px-16">
         <Link
-          className="font-headline text-primary-container text-lg font-bold tracking-tighter md:text-xl"
+          className="cursor-pointer font-headline text-primary-container text-lg font-bold tracking-tighter md:text-xl"
           href="/"
         >
           PORTFOLIO
@@ -44,7 +44,7 @@ export async function SiteHeader({
           />
           <LocaleSwitcher />
           <ResumeDownloadLink
-            className="bg-primary-container font-headline text-on-primary-container hidden items-center gap-2 rounded-sm px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 md:inline-flex"
+            className="cursor-pointer bg-primary-container font-headline text-on-primary-container hidden items-center gap-2 rounded-sm px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 md:inline-flex"
             href={resumePrimaryHref}
             leadingIcon="download"
             leadingIconClassName="size-4"
@@ -53,7 +53,7 @@ export async function SiteHeader({
           </ResumeDownloadLink>
           {showAdminLink ? (
             <Link
-              className="border-outline-variant/20 text-primary-fixed-dim hover:border-primary-container hover:text-primary-container inline-flex size-10 items-center justify-center rounded-sm border"
+              className="cursor-pointer border-outline-variant/20 text-primary-fixed-dim hover:border-primary-container hover:text-primary-container inline-flex size-10 items-center justify-center rounded-sm border"
               href="/admin"
               title={t("nav.admin")}
             >

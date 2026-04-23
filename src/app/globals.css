@@ -83,6 +83,18 @@
   }
 }
 
+@keyframes admin-snackbar-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @theme inline {
   --color-surface: var(--surface);
   --color-surface-container-low: var(--surface-container-low);
@@ -130,4 +142,32 @@ body {
 
 .nav-elevated {
   box-shadow: var(--elev-shadow);
+}
+
+/*
+  In @layer base (after preflight) so Tailwind utilities (e.g. cursor-wait) still override.
+  Prefer :enabled over :hover so the pointer shows without needing a hover-capable device.
+*/
+@layer base {
+  button:enabled,
+  input[type="submit"]:enabled,
+  input[type="button"]:enabled,
+  input[type="reset"]:enabled {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  input[type="submit"]:disabled,
+  input[type="button"]:disabled,
+  input[type="reset"]:disabled {
+    cursor: not-allowed;
+  }
+
+  ::file-selector-button {
+    cursor: pointer;
+  }
+
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
 }
