@@ -1,5 +1,11 @@
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
+
+export const metadata: Metadata = {
+  title: "Admin",
+  robots: { index: false, follow: false },
+};
 import { Link } from "@/i18n/navigation";
 import { signOut } from "@/app/[locale]/admin/actions";
 import { AdminSnackbarProvider } from "@/components/admin/admin-snackbar";

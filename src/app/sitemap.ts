@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-import { getSiteUrl } from "@/lib/env";
+import { homepageLanguageAlternates } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = getSiteUrl().replace(/\/$/, "");
+  const languages = homepageLanguageAlternates();
   return routing.locales.map((locale) => ({
-    url: `${base}/${locale}`,
+    url: languages[locale]!,
     lastModified: new Date(),
-    changeFrequency: "monthly",
+    changeFrequency: "monthly" as const,
     priority: 1,
+    alternates: { languages },
   }));
 }

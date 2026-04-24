@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -10,6 +11,16 @@ import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { PALETTE_COOKIE, parsePaletteId } from "@/lib/palette";
 import { parseThemePreference, THEME_COOKIE } from "@/lib/theme";
+import { searchVerificationMetadata, siteOrigin } from "@/lib/seo";
+
+/** HTML tag verification for Search Console / Bing; set `NEXT_PUBLIC_*` in `src/lib/env.ts`. */
+const verification = searchVerificationMetadata();
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteOrigin()),
+  title: { default: "Portfolio", template: "%s · Portfolio" },
+  ...(verification ? { verification } : {}),
+};
 
 const inter = Inter({
   subsets: ["latin"],

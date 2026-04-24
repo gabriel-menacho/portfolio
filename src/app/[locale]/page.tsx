@@ -16,6 +16,14 @@ import {
 } from "@/lib/data/portfolio";
 import { pickLocalized } from "@/lib/i18n-content";
 import type { Locale } from "@/i18n/routing";
+import {
+  buildHomeJsonLd,
+  homepageCanonical,
+  homepageLanguageAlternates,
+  jsonLdStringify,
+  openGraphLocales,
+  siteBrandName,
+} from "@/lib/seo";
 import { publicObjectUrl } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 
@@ -36,15 +44,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const loc = locale as Locale;
   const profile = await getProfile();
   const title =
-    pickLocalized(profile?.display_name ?? null, loc) || "Portfolio";
+    pickLocalized(profile?.display_name ?? null, loc).trim() || "Portfolio";
   const description =
     pickLocalized(profile?.headline ?? null, loc) ||
     pickLocalized(profile?.bio ?? null, loc) ||
-    "";
+    `${siteBrandName(profile, loc)} — portfolio`;
+  const pageUrl = homepageCanonical(loc);
+  const languages = homepageLanguageAlternates();
+  const ogLocales = openGraphLocales(loc);
+  const siteName = siteBrandName(profile, loc);
+  const avatarUrl = publicObjectUrl(profile?.avatar_path ?? null);
+
   return {
-    title: `${title} · Portfolio`,
+    title,
     description,
-    openGraph: { title, description },
+    alternates: { canonical: pageUrl, languages },
+    robots: { index: true, follow: true },
+    openGraph: {
+      type: "website",
+      url: pageUrl,
+      title,
+      description,
+      siteName,
+      locale: ogLocales.locale,
+      alternateLocale: ogLocales.alternateLocale,
+      ...(avatarUrl
+        ? { images: [{ url: avatarUrl, alt: title }] }
+        : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(avatarUrl ? { images: [avatarUrl] } : {}),
+    },
   };
 }
 
@@ -71,8 +104,14 @@ export default async function HomePage({ params, searchParams }: Props) {
       profile?.social_linkedin,
   );
 
+  const jsonLd = buildHomeJsonLd({ profile, locale: loc });
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdStringify(jsonLd) }}
+      />
       <SiteHeader
         resumePrimaryHref={resumePrimaryHref}
         showAdminLink={showAdminLink}

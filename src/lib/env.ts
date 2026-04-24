@@ -10,6 +10,10 @@ const envSchema = z.object({
     z.string().min(1),
   ),
   NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
+  /** Google Search Console HTML tag verification (content value only). */
+  NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().optional(),
+  /** Bing Webmaster msvalidate.01 content value. */
+  NEXT_PUBLIC_BING_SITE_VERIFICATION: z.string().optional(),
   ALLOWED_GITHUB_IDS: z
     .string()
     .optional()
@@ -30,6 +34,10 @@ function parseEnv(): Env {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION:
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    NEXT_PUBLIC_BING_SITE_VERIFICATION:
+      process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION,
     ALLOWED_GITHUB_IDS: process.env.ALLOWED_GITHUB_IDS,
   });
 }
