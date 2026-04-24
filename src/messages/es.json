@@ -9,6 +9,12 @@
     "toLight": "Cambiar a modo claro",
     "toDark": "Cambiar a modo oscuro"
   },
+  "palette": {
+    "label": "Esquema de color",
+    "nameDefault": "Arquitecto binario",
+    "nameEmber": "Forja ámbar",
+    "nameViolet": "Laboratorio violeta"
+  },
   "nav": {
     "experience": "Experiencia",
     "stack": "Stack",
@@ -54,7 +60,7 @@
     "copy": "Copiar",
     "copied": "Copiado",
     "mailto": "Abrir correo",
-    "panel": "¿Prefieres un canal directo? Usa correo para abrir tu cliente con un asunto prellenado, o copia la dirección para tu portal ATS."
+    "panel": "¿Prefieres un canal directo? Usa correo para abrir tu cliente con un asunto prellenado, o copia la dirección para tu portal."
   },
   "admin": {
     "title": "Sala de control",

@@ -9,6 +9,12 @@
     "toLight": "Ativar modo claro",
     "toDark": "Ativar modo escuro"
   },
+  "palette": {
+    "label": "Esquema de cores",
+    "nameDefault": "Arquiteto binário",
+    "nameEmber": "Forja âmbar",
+    "nameViolet": "Laboratório violeta"
+  },
   "nav": {
     "experience": "Experiência",
     "stack": "Stack",
@@ -54,7 +60,7 @@
     "copy": "Copiar",
     "copied": "Copiado",
     "mailto": "Abrir e-mail",
-    "panel": "Prefere um canal direto? Use o e-mail para abrir seu cliente com assunto preenchido, ou copie o endereço para o portal ATS."
+    "panel": "Prefere um canal direto? Use o e-mail para abrir seu cliente com assunto preenchido, ou copie o endereço para o portal."
   },
   "admin": {
     "title": "Sala de controle",

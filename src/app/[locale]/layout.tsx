@@ -1,14 +1,15 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Inter, Space_Grotesk } from "next/font/google";
-import { headers } from "next/headers";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-import { parseThemePreference, THEME_HEADER } from "@/lib/theme";
+import { PALETTE_COOKIE, parsePaletteId } from "@/lib/palette";
+import { parseThemePreference, THEME_COOKIE } from "@/lib/theme";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,7 +41,9 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
-  const theme = parseThemePreference((await headers()).get(THEME_HEADER));
+  const store = await cookies();
+  const theme = parseThemePreference(store.get(THEME_COOKIE)?.value);
+  const palette = parsePaletteId(store.get(PALETTE_COOKIE)?.value);
 
   return (
     <html
@@ -51,6 +54,7 @@ export default async function LocaleLayout({
         theme === "dark" && "dark",
         theme === "light" && "light",
       )}
+      data-palette={palette === "default" ? undefined : palette}
       lang={locale}
       suppressHydrationWarning
     >

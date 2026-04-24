@@ -1,10 +1,13 @@
+import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { Shield } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { PaletteSelect } from "@/components/palette-select";
 import { ResumeDownloadLink } from "@/components/resume-download-link";
 import { SiteHeaderSectionNav } from "@/components/site-header-section-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { PALETTE_COOKIE, parsePaletteId } from "@/lib/palette";
 import { cn } from "@/lib/utils";
 
 export async function SiteHeader({
@@ -15,6 +18,9 @@ export async function SiteHeader({
   showAdminLink?: boolean;
 }) {
   const t = await getTranslations();
+  const palette = parsePaletteId(
+    (await cookies()).get(PALETTE_COOKIE)?.value,
+  );
 
   const sectionNavItems = [
     { sectionId: "stack", label: t("nav.stack") },
@@ -38,6 +44,7 @@ export async function SiteHeader({
         </Link>
         <SiteHeaderSectionNav items={sectionNavItems} />
         <div className="flex items-center gap-3">
+          <PaletteSelect defaultPalette={palette} />
           <ThemeToggle
             labelDark={t("theme.toDark")}
             labelLight={t("theme.toLight")}

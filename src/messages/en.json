@@ -9,6 +9,12 @@
     "toLight": "Switch to light mode",
     "toDark": "Switch to dark mode"
   },
+  "palette": {
+    "label": "Color scheme",
+    "nameDefault": "Binary Architect",
+    "nameEmber": "Ember Forge",
+    "nameViolet": "Violet Lab"
+  },
   "nav": {
     "experience": "Experience",
     "stack": "Stack",
@@ -54,7 +60,7 @@
     "copy": "Copy",
     "copied": "Copied",
     "mailto": "Open mail",
-    "panel": "Prefer a direct line? Use mail to open your client with a prefilled subject, or copy the address for your ATS portal."
+    "panel": "Prefer a direct line? Use mail to open your client with a prefilled subject, or copy the address for your portal."
   },
   "admin": {
     "title": "Control room",
