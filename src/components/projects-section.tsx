@@ -1,10 +1,33 @@
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { pickLocalized } from "@/lib/i18n-content";
-import type { Locale } from "@/i18n/routing";
+import { locales, type Locale } from "@/i18n/routing";
 import type { Project } from "@/types/portfolio";
 import { publicObjectUrl } from "@/lib/storage";
+
+function hasLocalePrefix(path: string): boolean {
+  return locales.some(
+    (locale) => path === `/${locale}` || path.startsWith(`/${locale}/`),
+  );
+}
+
+function resolveProjectHref(
+  rawHref: string,
+  locale: Locale,
+): { href: string; isExternal: boolean } {
+  if (!rawHref.startsWith("/")) {
+    return { href: rawHref, isExternal: true };
+  }
+  if (hasLocalePrefix(rawHref)) {
+    return { href: rawHref, isExternal: false };
+  }
+  return {
+    href: rawHref === "/" ? `/${locale}` : `/${locale}${rawHref}`,
+    isExternal: false,
+  };
+}
 
 export async function ProjectsSection({
   locale,
@@ -39,6 +62,7 @@ export async function ProjectsSection({
               const title = pickLocalized(project.title, locale);
               const desc = pickLocalized(project.description, locale);
               const href = project.url ?? project.repo_url ?? "#";
+              const link = resolveProjectHref(href, locale);
               return (
                 <article
                   className="bg-surface-container-low hover:bg-surface-container flex flex-col rounded-sm p-8 transition-colors"
@@ -53,14 +77,23 @@ export async function ProjectsSection({
                         {desc}
                       </p>
                     </div>
-                    <a
-                      className="bg-surface-container-highest text-primary-fixed-dim hover:bg-primary-container hover:text-on-primary-container inline-flex size-10 shrink-0 items-center justify-center rounded-sm"
-                      href={href}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      <ArrowUpRight className="size-5" />
-                    </a>
+                    {link.isExternal ? (
+                      <a
+                        className="bg-surface-container-highest text-primary-fixed-dim hover:bg-primary-container hover:text-on-primary-container inline-flex size-10 shrink-0 items-center justify-center rounded-sm"
+                        href={link.href}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        <ArrowUpRight className="size-5" />
+                      </a>
+                    ) : (
+                      <Link
+                        className="bg-surface-container-highest text-primary-fixed-dim hover:bg-primary-container hover:text-on-primary-container inline-flex size-10 shrink-0 items-center justify-center rounded-sm"
+                        href={link.href}
+                      >
+                        <ArrowUpRight className="size-5" />
+                      </Link>
+                    )}
                   </div>
                   {img ? (
                     <div className="bg-surface-container-lowest relative mb-6 aspect-video w-full overflow-hidden rounded-sm">
