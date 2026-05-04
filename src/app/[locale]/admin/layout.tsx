@@ -27,6 +27,7 @@ export default async function AdminLayout({
     { href: "/admin/stack", label: t("admin.stack") },
     { href: "/admin/experiences", label: t("admin.experiences") },
     { href: "/admin/projects", label: t("admin.projects") },
+    { href: "/admin/hire-requests", label: t("admin.hireRequests") },
   ] as const;
 
   return (

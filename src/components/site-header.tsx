@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { Shield } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { HireMeButton } from "@/components/hire-me-button";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { PaletteSelect } from "@/components/palette-select";
 import { ResumeDownloadLink } from "@/components/resume-download-link";
@@ -50,6 +51,7 @@ export async function SiteHeader({
             labelLight={t("theme.toLight")}
           />
           <LocaleSwitcher />
+          <HireMeButton variant="header" />
           <ResumeDownloadLink
             className="cursor-pointer bg-primary-container font-headline text-on-primary-container hidden items-center gap-2 rounded-sm px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 md:inline-flex"
             href={resumePrimaryHref}

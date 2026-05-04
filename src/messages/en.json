@@ -52,6 +52,41 @@
     "title": "Projects",
     "subtitle": "Selected work and experiments."
   },
+  "hire": {
+    "cta": "Hire me",
+    "dialogTitle": "Let's work together",
+    "dialogSubtitle": "Share the role and I'll get back to you.",
+    "fields": {
+      "recruiterEmail": "Your email",
+      "recruiterName": "Your name",
+      "company": "Company",
+      "jobTitle": "Job title",
+      "employmentType": "Employment type",
+      "employmentTypes": {
+        "full_time": "Full-time",
+        "contract": "Contract",
+        "freelance": "Freelance",
+        "other": "Other"
+      },
+      "location": "Location",
+      "remote": "Open to remote",
+      "salaryRange": "Salary range",
+      "jobDescription": "Job description",
+      "message": "Anything else?"
+    },
+    "submit": "Send",
+    "submitting": "Sending…",
+    "success": "Thanks! I'll be in touch shortly.",
+    "sendAnother": "Send another",
+    "close": "Close",
+    "errors": {
+      "required": "Required",
+      "email": "Enter a valid email",
+      "tooLong": "Too long",
+      "generic": "Something went wrong. Please try again.",
+      "validation": "Some values could not be saved. Check the fields and try again."
+    }
+  },
   "contact": {
     "title": "Contact",
     "subtitle": "Reach out for roles, collaborations, or architecture reviews.",
@@ -69,6 +104,10 @@
     "stack": "Stack",
     "experiences": "Experiences",
     "projects": "Projects",
+    "hireRequests": "Hire requests",
+    "hireRequestsSubtitle": "Submissions from the public “Hire me” form.",
+    "hireRequestsEmpty": "No hire requests yet.",
+    "hireRequestsDelete": "Delete",
     "signOut": "Sign out",
     "save": "Save",
     "saved": "Saved",

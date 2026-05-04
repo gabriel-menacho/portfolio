@@ -9,6 +9,7 @@ export default async function AdminHomePage() {
     { href: "/admin/stack", title: t("admin.stack") },
     { href: "/admin/experiences", title: t("admin.experiences") },
     { href: "/admin/projects", title: t("admin.projects") },
+    { href: "/admin/hire-requests", title: t("admin.hireRequests") },
   ] as const;
 
   return (

@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { HireMeButton } from "@/components/hire-me-button";
 import { HeroRoleTypewriter } from "@/components/hero-role-typewriter";
 import { ResumeDownloadLink } from "@/components/resume-download-link";
 import { pickLocalized } from "@/lib/i18n-content";
@@ -105,6 +106,7 @@ export async function HeroSection({
             >
               {t("hero.resumePrimary")}
             </ResumeDownloadLink>
+            <HireMeButton variant="hero" />
           </div>
         </div>
         <div className="relative mx-auto w-full max-w-xs md:col-span-5 md:mx-0 md:max-w-md">

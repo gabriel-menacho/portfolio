@@ -4,8 +4,8 @@ Personal portfolio site built with **Next.js (App Router)**, **TypeScript**, **T
 
 ## Features
 
-- Localized marketing home: hero (photo + intro), stack groups, experience timeline, projects, contact (`mailto` + copy + social links).
-- **Admin** (GitHub OAuth): CRUD for profile, stack, experiences, projects; avatar + resume PDF override uploads.
+- Localized marketing home: hero (photo + intro), stack groups, experience timeline, projects, contact (`mailto` + copy + social links), and a **Hire me** dialog that saves recruiter submissions to Supabase.
+- **Admin** (GitHub OAuth): CRUD for profile, stack, experiences, projects; avatar + resume PDF override uploads; **Hire requests** inbox for submissions from the public form.
 - **Resume**: ATS-oriented PDF generated from the same database content (`GET /api/resume/pdf?locale=en`). Optional uploaded PDF replaces the primary download when configured.
 - **SEO**: `sitemap.xml`, `robots.txt`, per-page metadata.
 - **Theming**: light / dark (and system) via `next-themes`, with CSS variable palettes in `src/app/globals.css`. The choice is persisted in an **httpOnly** cookie (`portfolio-theme`: `light` \| `dark` \| `system`) via a server action and echoed on each request through middleware (`x-portfolio-theme`) so the server can render the correct `<html>` class before hydration.
@@ -30,7 +30,11 @@ If `ALLOWED_GITHUB_IDS` is empty, **no GitHub user can pass the admin gate** (af
 
 ## Supabase setup
 
-1. In the Supabase SQL editor (or CLI), run migrations in order: `supabase/migrations/20260418190000_init.sql`, then `supabase/migrations/20260419000000_seed_portfolio_self_project.sql` (or use Supabase CLI `db push` / linked project migrations).
+1. In the Supabase SQL editor (or CLI), run migrations in order: `supabase/migrations/20260418190000_init.sql`, then `supabase/migrations/20260419000000_seed_portfolio_self_project.sql`, then later migrations including `20260504120000_hire_requests.sql` (or use Supabase CLI `db push` / linked project migrations).
+
+### Hire requests (`hire_requests`)
+
+The `hire_requests` table stores public “Hire me” form submissions. **RLS:** `anon` and `authenticated` may **insert**; only **authenticated** users may **select** and **delete** (so visitors cannot read others’ submissions; you read them signed in under **Admin → Hire requests**). No extra environment variables are required beyond the existing `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 2. **Authentication → Providers → GitHub**: enable GitHub, add client id/secret from a GitHub OAuth app.
 3. **Authentication → URL configuration**:
    - Site URL: your deployed origin (e.g. `https://example.com`) or `http://localhost:3000` for local dev.

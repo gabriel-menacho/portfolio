@@ -54,3 +54,20 @@ export type Project = {
   show_on_site: boolean;
   tags: { label: string }[];
 };
+
+export type HireRequest = {
+  id: string;
+  recruiter_email: string;
+  recruiter_name: string | null;
+  company: string | null;
+  job_title: string;
+  employment_type: string | null;
+  job_location: string | null;
+  is_remote: boolean;
+  salary_range: string | null;
+  job_description: string;
+  message: string | null;
+  locale: string | null;
+  user_agent: string | null;
+  created_at: string;
+};

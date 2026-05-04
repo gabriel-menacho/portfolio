@@ -52,6 +52,41 @@
     "title": "Proyectos",
     "subtitle": "Trabajos y experimentos seleccionados."
   },
+  "hire": {
+    "cta": "Contrátame",
+    "dialogTitle": "Trabajemos juntos",
+    "dialogSubtitle": "Cuéntame el rol y te respondo pronto.",
+    "fields": {
+      "recruiterEmail": "Tu correo",
+      "recruiterName": "Tu nombre",
+      "company": "Empresa",
+      "jobTitle": "Puesto",
+      "employmentType": "Tipo de contrato",
+      "employmentTypes": {
+        "full_time": "Tiempo completo",
+        "contract": "Contrato",
+        "freelance": "Freelance",
+        "other": "Otro"
+      },
+      "location": "Ubicación",
+      "remote": "Remoto posible",
+      "salaryRange": "Rango salarial",
+      "jobDescription": "Descripción del puesto",
+      "message": "¿Algo más?"
+    },
+    "submit": "Enviar",
+    "submitting": "Enviando…",
+    "success": "¡Gracias! Te contactaré pronto.",
+    "sendAnother": "Enviar otro",
+    "close": "Cerrar",
+    "errors": {
+      "required": "Obligatorio",
+      "email": "Introduce un correo válido",
+      "tooLong": "Demasiado largo",
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "validation": "Algunos valores no son válidos. Revisa los campos."
+    }
+  },
   "contact": {
     "title": "Contacto",
     "subtitle": "Escríbeme para roles, colaboraciones o revisiones de arquitectura.",
@@ -69,6 +104,10 @@
     "stack": "Stack",
     "experiences": "Experiencias",
     "projects": "Proyectos",
+    "hireRequests": "Solicitudes de contratación",
+    "hireRequestsSubtitle": "Envíos del formulario público «Contrátame».",
+    "hireRequestsEmpty": "Aún no hay solicitudes.",
+    "hireRequestsDelete": "Eliminar",
     "signOut": "Salir",
     "save": "Guardar",
     "saved": "Guardado",
