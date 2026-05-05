@@ -9,6 +9,7 @@ import { ResumeDownloadLink } from "@/components/resume-download-link";
 import { SiteHeaderSectionNav } from "@/components/site-header-section-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { PALETTE_COOKIE, parsePaletteId } from "@/lib/palette";
+import { showHomeProjectsSection } from "@/lib/site-flags";
 import { cn } from "@/lib/utils";
 
 export async function SiteHeader({
@@ -26,7 +27,9 @@ export async function SiteHeader({
   const sectionNavItems = [
     { sectionId: "stack", label: t("nav.stack") },
     { sectionId: "experience", label: t("nav.experience") },
-    { sectionId: "projects", label: t("nav.projects") },
+    ...(showHomeProjectsSection
+      ? [{ sectionId: "projects" as const, label: t("nav.projects") }]
+      : []),
     { sectionId: "contact", label: t("nav.contact") },
   ];
 

@@ -14,6 +14,7 @@ import {
   getProjects,
   getStack,
 } from "@/lib/data/portfolio";
+import { showHomeProjectsSection } from "@/lib/site-flags";
 import { pickLocalized } from "@/lib/i18n-content";
 import type { Locale } from "@/i18n/routing";
 import {
@@ -88,12 +89,14 @@ export default async function HomePage({ params, searchParams }: Props) {
   const loc = locale as Locale;
   const t = await getTranslations();
 
-  const [profile, stack, experiences, projects] = await Promise.all([
+  const [profile, stack, experiences] = await Promise.all([
     getProfile(),
     getStack(),
     getExperiences({ publicOnly: true }),
-    getProjects({ publicOnly: true }),
   ]);
+  const projects = showHomeProjectsSection
+    ? await getProjects({ publicOnly: true })
+    : [];
 
   const overrideUrl = publicObjectUrl(profile?.resume_override_path ?? null);
   const generatedUrl = `/api/resume/pdf?locale=${loc}`;
@@ -127,7 +130,9 @@ export default async function HomePage({ params, searchParams }: Props) {
           />
           <StackSection groups={stack} locale={loc} />
           <ExperienceSection experiences={experiences} locale={loc} />
-          <ProjectsSection locale={loc} projects={projects} />
+          {showHomeProjectsSection ? (
+            <ProjectsSection locale={loc} projects={projects} />
+          ) : null}
           <ContactSection
             locale={loc}
             panelNote={t("contact.panel")}
