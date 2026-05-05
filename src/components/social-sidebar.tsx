@@ -2,7 +2,9 @@ import { Mail } from "lucide-react";
 import {
   GithubBrandIcon,
   LinkedinBrandIcon,
+  WhatsappBrandIcon,
 } from "@/components/ui/social-brand-icons";
+import { whatsappHref } from "@/lib/whatsapp";
 import type { Profile } from "@/types/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -11,10 +13,12 @@ export function SocialSidebar({ profile }: { profile: Profile | null }) {
   const mailto = email
     ? `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent("Hello")}`
     : "";
+  const phone = profile?.phone ?? "";
+  const wa = whatsappHref(phone);
   const github = profile?.social_github;
   const linkedin = profile?.social_linkedin;
 
-  if (!mailto && !github && !linkedin) return null;
+  if (!mailto && !wa && !github && !linkedin) return null;
 
   const linkClass =
     "border-outline-variant/20 text-primary-fixed-dim hover:border-primary-container hover:text-primary-container inline-flex size-10 items-center justify-center rounded-sm border transition-colors";
@@ -34,6 +38,17 @@ export function SocialSidebar({ profile }: { profile: Profile | null }) {
           rel="noreferrer"
         >
           <Mail className="size-5" />
+        </a>
+      ) : null}
+      {wa ? (
+        <a
+          aria-label="WhatsApp"
+          className={linkClass}
+          href={wa}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <WhatsappBrandIcon className="size-5" />
         </a>
       ) : null}
       {github ? (

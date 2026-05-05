@@ -76,6 +76,7 @@ export async function updateProfile(
       role_label: localized(formData, "role_label"),
       location: localized(formData, "location"),
       email: String(formData.get("email") ?? ""),
+      phone: String(formData.get("phone") ?? ""),
       social_github: String(formData.get("social_github") ?? ""),
       social_linkedin: String(formData.get("social_linkedin") ?? ""),
       updated_at: new Date().toISOString(),

@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { X } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { createHireRequest } from "@/app/actions/hire-request";
 import {
@@ -18,6 +18,25 @@ const employmentValues: HireRequestFormValues["employmentType"][] = [
   "freelance",
   "other",
 ];
+
+function RequiredStar() {
+  return (
+    <span
+      aria-hidden="true"
+      className="text-primary-container ms-0.5 text-sm font-bold leading-none"
+    >
+      *
+    </span>
+  );
+}
+
+function OptionalHint({ children }: { children: ReactNode }) {
+  return (
+    <span className="text-on-surface-variant ms-1 font-normal normal-case tracking-normal not-italic">
+      {children}
+    </span>
+  );
+}
 
 export function HireMeDialog({
   onRequestClose,
@@ -158,11 +177,17 @@ export function HireMeDialog({
               </p>
             ) : null}
 
+            <p className="text-on-surface-variant mb-4 text-xs leading-relaxed">
+              {t("hire.requiredLegend")}
+            </p>
+
             <div>
               <label className={labelClass} htmlFor="hire-recruiter-email">
                 {t("hire.fields.recruiterEmail")}
+                <RequiredStar />
               </label>
               <input
+                aria-required="true"
                 autoComplete="email"
                 className={cn(
                   fieldClass,
@@ -184,8 +209,10 @@ export function HireMeDialog({
               <div>
                 <label className={labelClass} htmlFor="hire-recruiter-name">
                   {t("hire.fields.recruiterName")}
+                  <OptionalHint>{t("hire.optional")}</OptionalHint>
                 </label>
                 <input
+                  aria-required="false"
                   className={cn(fieldClass, errors.recruiterName && "border-red-500 dark:border-red-400")}
                   id="hire-recruiter-name"
                   type="text"
@@ -200,8 +227,10 @@ export function HireMeDialog({
               <div>
                 <label className={labelClass} htmlFor="hire-company">
                   {t("hire.fields.company")}
+                  <OptionalHint>{t("hire.optional")}</OptionalHint>
                 </label>
                 <input
+                  aria-required="false"
                   className={cn(fieldClass, errors.company && "border-red-500 dark:border-red-400")}
                   id="hire-company"
                   type="text"
@@ -216,8 +245,10 @@ export function HireMeDialog({
             <div>
               <label className={labelClass} htmlFor="hire-job-title">
                 {t("hire.fields.jobTitle")}
+                <RequiredStar />
               </label>
               <input
+                aria-required="true"
                 className={cn(fieldClass, errors.jobTitle && "border-red-500 dark:border-red-400")}
                 id="hire-job-title"
                 type="text"
@@ -232,8 +263,10 @@ export function HireMeDialog({
               <div>
                 <label className={labelClass} htmlFor="hire-employment-type">
                   {t("hire.fields.employmentType")}
+                  <RequiredStar />
                 </label>
                 <select
+                  aria-required="true"
                   className={cn(
                     fieldClass,
                     errors.employmentType && "border-red-500 dark:border-red-400",
@@ -257,8 +290,10 @@ export function HireMeDialog({
               <div>
                 <label className={labelClass} htmlFor="hire-location">
                   {t("hire.fields.location")}
+                  <OptionalHint>{t("hire.optional")}</OptionalHint>
                 </label>
                 <input
+                  aria-required="false"
                   className={cn(fieldClass, errors.jobLocation && "border-red-500 dark:border-red-400")}
                   id="hire-location"
                   type="text"
@@ -275,19 +310,23 @@ export function HireMeDialog({
             <div className="flex flex-wrap items-center gap-4">
               <label className="text-on-surface flex cursor-pointer items-center gap-2 text-sm font-medium">
                 <input
+                  aria-required="false"
                   className="border-on-surface-variant/50 text-primary-container focus:ring-primary-container size-4 rounded-sm border"
                   type="checkbox"
                   {...register("isRemote")}
                 />
                 {t("hire.fields.remote")}
+                <OptionalHint>{t("hire.optional")}</OptionalHint>
               </label>
             </div>
 
             <div>
               <label className={labelClass} htmlFor="hire-salary">
                 {t("hire.fields.salaryRange")}
+                <OptionalHint>{t("hire.optional")}</OptionalHint>
               </label>
               <input
+                aria-required="false"
                 className={cn(fieldClass, errors.salaryRange && "border-red-500 dark:border-red-400")}
                 id="hire-salary"
                 type="text"
@@ -301,8 +340,10 @@ export function HireMeDialog({
             <div>
               <label className={labelClass} htmlFor="hire-description">
                 {t("hire.fields.jobDescription")}
+                <RequiredStar />
               </label>
               <textarea
+                aria-required="true"
                 className={cn(
                   fieldClass,
                   errors.jobDescription && "border-red-500 dark:border-red-400",
@@ -322,8 +363,10 @@ export function HireMeDialog({
             <div>
               <label className={labelClass} htmlFor="hire-message">
                 {t("hire.fields.message")}
+                <OptionalHint>{t("hire.optional")}</OptionalHint>
               </label>
               <textarea
+                aria-required="false"
                 className={cn(
                   fieldClass,
                   errors.message && "border-red-500 dark:border-red-400",

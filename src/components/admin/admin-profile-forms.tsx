@@ -167,6 +167,18 @@ export function AdminProfileForms({
           </label>
           <label className="block space-y-2">
             <span className="font-headline text-outline-variant text-xs tracking-widest uppercase">
+              Phone (WhatsApp)
+            </span>
+            <input
+              className="border-outline-variant/20 bg-surface-container w-full rounded-sm border px-3 py-2 text-sm"
+              defaultValue={p?.phone ?? ""}
+              name="phone"
+              placeholder="+1 555 123 4567"
+              type="tel"
+            />
+          </label>
+          <label className="block space-y-2">
+            <span className="font-headline text-outline-variant text-xs tracking-widest uppercase">
               GitHub URL
             </span>
             <input

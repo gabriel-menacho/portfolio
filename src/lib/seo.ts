@@ -6,6 +6,7 @@ import { routing, type Locale } from "@/i18n/routing";
 import type { Profile } from "@/types/portfolio";
 import { pickLocalized } from "@/lib/i18n-content";
 import { publicObjectUrl } from "@/lib/storage";
+import { whatsappDigits } from "@/lib/whatsapp";
 
 /** Fallback when profile display name is missing (matches public domain branding). */
 export const DEFAULT_SITE_BRAND_NAME = "Gabriel Menacho";
@@ -94,6 +95,8 @@ export function buildHomeJsonLd(params: {
   const image = publicObjectUrl(profile?.avatar_path ?? null) ?? undefined;
   const sameAs = sameAsFromProfile(profile);
   const siteName = siteBrandName(profile, locale);
+  const phoneRaw = profile?.phone?.trim() ?? "";
+  const phoneDigits = whatsappDigits(phoneRaw);
 
   const person: Record<string, unknown> = {
     "@type": "Person",
@@ -104,6 +107,7 @@ export function buildHomeJsonLd(params: {
   if (description) person.description = description;
   if (image) person.image = image;
   if (sameAs.length) person.sameAs = sameAs;
+  if (phoneRaw && phoneDigits.length >= 10) person.telephone = phoneRaw;
 
   const website: Record<string, unknown> = {
     "@type": "WebSite",

@@ -7,6 +7,7 @@ export type Profile = {
   bio: LocalizedText;
   role_label: LocalizedText;
   email: string;
+  phone: string;
   location: LocalizedText;
   avatar_path: string | null;
   resume_override_path: string | null;

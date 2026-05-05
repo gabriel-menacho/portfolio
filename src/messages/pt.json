@@ -56,6 +56,8 @@
     "cta": "Me contrate",
     "dialogTitle": "Vamos trabalhar juntos",
     "dialogSubtitle": "Conte sobre a vaga que eu retorno em breve.",
+    "requiredLegend": "Os campos obrigatórios estão marcados com um asterisco (*).",
+    "optional": "(opcional)",
     "fields": {
       "recruiterEmail": "Seu e-mail",
       "recruiterName": "Seu nome",
@@ -91,10 +93,13 @@
     "title": "Contato",
     "subtitle": "Fale comigo para vagas, colaborações ou revisões de arquitetura.",
     "email": "E-mail",
+    "phone": "Telefone",
     "location": "Base",
     "copy": "Copiar",
     "copied": "Copiado",
     "mailto": "Abrir e-mail",
+    "whatsapp": "WhatsApp",
+    "whatsappPrefill": "Olá Gabriel — vi seu portfolio e queria falar com você.",
     "panel": "Prefere um canal direto? Use o e-mail para abrir seu cliente com assunto preenchido, ou copie o endereço para o portal."
   },
   "admin": {

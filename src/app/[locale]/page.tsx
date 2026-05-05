@@ -100,6 +100,7 @@ export default async function HomePage({ params, searchParams }: Props) {
   const resumePrimaryHref = overrideUrl ?? generatedUrl;
   const showSocialRail = Boolean(
     profile?.email?.trim() ||
+      profile?.phone?.trim() ||
       profile?.social_github ||
       profile?.social_linkedin,
   );

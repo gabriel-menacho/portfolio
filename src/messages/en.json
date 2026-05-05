@@ -56,6 +56,8 @@
     "cta": "Hire me",
     "dialogTitle": "Let's work together",
     "dialogSubtitle": "Share the role and I'll get back to you.",
+    "requiredLegend": "Required fields are marked with an asterisk (*).",
+    "optional": "(optional)",
     "fields": {
       "recruiterEmail": "Your email",
       "recruiterName": "Your name",
@@ -91,10 +93,13 @@
     "title": "Contact",
     "subtitle": "Reach out for roles, collaborations, or architecture reviews.",
     "email": "Email",
+    "phone": "Phone",
     "location": "Base",
     "copy": "Copy",
     "copied": "Copied",
     "mailto": "Open mail",
+    "whatsapp": "WhatsApp",
+    "whatsappPrefill": "Hi Gabriel — I saw your portfolio and wanted to reach out.",
     "panel": "Prefer a direct line? Use mail to open your client with a prefilled subject, or copy the address for your portal."
   },
   "admin": {

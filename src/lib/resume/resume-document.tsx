@@ -1,9 +1,11 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import { phoneWithBoliviaFlag } from "@/lib/phone-display";
 
 export type ResumePdfInput = {
   name: string;
   headline: string;
   email: string;
+  phone: string;
   summary: string;
   skillLines: string[];
   experiences: Array<{
@@ -69,7 +71,13 @@ export function ResumePdfDocument(props: ResumePdfInput) {
       <Page size="LETTER" style={styles.page}>
         <Text style={styles.h1}>{props.name}</Text>
         <Text style={styles.sub}>
-          {[props.headline, props.email].filter(Boolean).join(" · ")}
+          {[
+            props.headline,
+            props.email,
+            props.phone.trim() ? phoneWithBoliviaFlag(props.phone) : "",
+          ]
+            .filter(Boolean)
+            .join(" · ")}
         </Text>
 
         <Text style={styles.section}>Summary</Text>

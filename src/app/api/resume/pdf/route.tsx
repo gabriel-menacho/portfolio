@@ -26,6 +26,7 @@ export async function GET(request: Request) {
   const headline = pickLocalized(profile?.headline ?? null, locale) || "";
   const summary = pickLocalized(profile?.bio ?? null, locale) || "";
   const email = profile?.email ?? "";
+  const phone = profile?.phone?.trim() ?? "";
 
   const skillLines = stack.map(({ group, technologies }) => {
     const title = pickLocalized(group.title, locale);
@@ -53,6 +54,7 @@ export async function GET(request: Request) {
       experiences={expPdf}
       headline={headline}
       name={name}
+      phone={phone}
       projects={projPdf}
       skillLines={skillLines}
       summary={summary}

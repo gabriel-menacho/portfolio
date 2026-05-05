@@ -56,6 +56,8 @@
     "cta": "Contrátame",
     "dialogTitle": "Trabajemos juntos",
     "dialogSubtitle": "Cuéntame el rol y te respondo pronto.",
+    "requiredLegend": "Los campos obligatorios llevan un asterisco (*).",
+    "optional": "(opcional)",
     "fields": {
       "recruiterEmail": "Tu correo",
       "recruiterName": "Tu nombre",
@@ -91,10 +93,13 @@
     "title": "Contacto",
     "subtitle": "Escríbeme para roles, colaboraciones o revisiones de arquitectura.",
     "email": "Correo",
+    "phone": "Teléfono",
     "location": "Ubicación",
     "copy": "Copiar",
     "copied": "Copiado",
     "mailto": "Abrir correo",
+    "whatsapp": "WhatsApp",
+    "whatsappPrefill": "Hola Gabriel — vi tu portfolio y quería contactarte.",
     "panel": "¿Prefieres un canal directo? Usa correo para abrir tu cliente con un asunto prellenado, o copia la dirección para tu portal."
   },
   "admin": {
