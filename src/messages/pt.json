@@ -123,6 +123,9 @@
     "cleared": "Removido",
     "showOnSite": "Visível no site",
     "hiddenFromSite": "Oculto no site",
+    "homeProjectsSection": "Seção de projetos na página inicial",
+    "homeProjectsSectionHint": "Controla o bloco de projetos na landing e o link Projetos no menu.",
+    "homeProjectsSectionHidden": "Oculto na página inicial e na navegação",
     "error": "Algo deu errado",
     "formErrors": {
       "generic": "Não foi possível concluir a ação. Verifique a conexão e tente de novo.",

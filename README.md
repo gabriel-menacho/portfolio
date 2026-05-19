@@ -30,7 +30,7 @@ If `ALLOWED_GITHUB_IDS` is empty, **no GitHub user can pass the admin gate** (af
 
 ## Supabase setup
 
-1. In the Supabase SQL editor (or CLI), run migrations in order: `supabase/migrations/20260418190000_init.sql`, then `supabase/migrations/20260419000000_seed_portfolio_self_project.sql`, then later migrations including `20260504120000_hire_requests.sql` (or use Supabase CLI `db push` / linked project migrations).
+1. In the Supabase SQL editor (or CLI), run migrations in order: `supabase/migrations/20260418190000_init.sql`, then `supabase/migrations/20260419000000_seed_portfolio_self_project.sql`, then later migrations including `20260429120000_autonexus_project_url_appetize.sql`, `20260504120000_hire_requests.sql`, `20260519120000_seed_project_legisflow.sql`, and `20260519130000_profile_show_home_projects_section.sql` (or use Supabase CLI `db push` / linked project migrations).
 
 ### Hire requests (`hire_requests`)
 

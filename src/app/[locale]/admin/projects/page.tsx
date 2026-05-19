@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import {
   createProject,
   deleteProject,
+  setHomeProjectsSectionVisible,
   setProjectShowOnSite,
   updateProject,
 } from "@/app/[locale]/admin/actions";
@@ -10,7 +11,7 @@ import {
   AdminServerActionForm,
 } from "@/components/admin/admin-server-action-form";
 import { AdminSiteVisibilityToggleForm } from "@/components/admin/admin-site-visibility-toggle-form";
-import { getProjects } from "@/lib/data/portfolio";
+import { getProfile, getProjects } from "@/lib/data/portfolio";
 import { pickLocalized, type LocalizedText } from "@/lib/i18n-content";
 import type { Locale } from "@/i18n/routing";
 
@@ -20,7 +21,12 @@ export default async function AdminProjectsPage({ params }: Props) {
   const { locale } = await params;
   const loc = locale as Locale;
   const t = await getTranslations();
-  const projects = await getProjects();
+  const [profile, projects] = await Promise.all([
+    getProfile(),
+    getProjects(),
+  ]);
+  const showHomeProjectsSection =
+    profile?.show_home_projects_section !== false;
 
   return (
     <div className="space-y-12">
@@ -33,6 +39,29 @@ export default async function AdminProjectsPage({ params }: Props) {
           <code>project-media/hero.png</code>.
         </p>
       </div>
+
+      <section className="bg-surface-container flex flex-col gap-3 rounded-sm p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="font-headline text-base font-semibold">
+            {t("admin.homeProjectsSection")}
+          </h2>
+          <p className="text-on-surface-variant mt-1 text-sm">
+            {t("admin.homeProjectsSectionHint")}
+          </p>
+          {!showHomeProjectsSection ? (
+            <p className="text-primary-container mt-2 text-xs">
+              {t("admin.homeProjectsSectionHidden")}
+            </p>
+          ) : null}
+        </div>
+        <AdminSiteVisibilityToggleForm
+          action={setHomeProjectsSectionVisible}
+          label={t("admin.showOnSite")}
+          locale={locale}
+          savedMessage={t("admin.saved")}
+          showOnSite={showHomeProjectsSection}
+        />
+      </section>
 
       <section className="space-y-4">
         <h2 className="font-headline text-lg font-semibold">Existing</h2>

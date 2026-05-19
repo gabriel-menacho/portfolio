@@ -32,7 +32,8 @@ export function AdminSiteVisibilityToggleForm({
   label,
 }: {
   action: ServerAction;
-  id: string;
+  /** Omit for site-wide toggles (e.g. homepage section) that do not target a row id. */
+  id?: string;
   locale: string;
   showOnSite: boolean;
   savedMessage: string;
@@ -62,9 +63,9 @@ export function AdminSiteVisibilityToggleForm({
     <form
       action={handleAction}
       className="flex shrink-0 items-center gap-2"
-      key={`${id}-site-${showOnSite}`}
+      key={id ? `${id}-site-${showOnSite}` : `site-${showOnSite}`}
     >
-      <input name="id" type="hidden" value={id} />
+      {id ? <input name="id" type="hidden" value={id} /> : null}
       <input name="locale" type="hidden" value={locale} />
       <label className="flex cursor-pointer items-center gap-2 text-xs">
         <input

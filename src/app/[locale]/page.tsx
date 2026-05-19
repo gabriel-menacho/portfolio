@@ -14,7 +14,6 @@ import {
   getProjects,
   getStack,
 } from "@/lib/data/portfolio";
-import { showHomeProjectsSection } from "@/lib/site-flags";
 import { pickLocalized } from "@/lib/i18n-content";
 import type { Locale } from "@/i18n/routing";
 import {
@@ -94,6 +93,8 @@ export default async function HomePage({ params, searchParams }: Props) {
     getStack(),
     getExperiences({ publicOnly: true }),
   ]);
+  const showHomeProjectsSection =
+    profile?.show_home_projects_section !== false;
   const projects = showHomeProjectsSection
     ? await getProjects({ publicOnly: true })
     : [];
@@ -119,6 +120,7 @@ export default async function HomePage({ params, searchParams }: Props) {
       <SiteHeader
         resumePrimaryHref={resumePrimaryHref}
         showAdminLink={showAdminLink}
+        showHomeProjectsSection={showHomeProjectsSection}
       />
       <SocialSidebar profile={profile} />
       <div className={cn(showSocialRail && "sm:pl-12 md:pl-14")}>

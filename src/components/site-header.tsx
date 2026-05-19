@@ -9,15 +9,16 @@ import { ResumeDownloadLink } from "@/components/resume-download-link";
 import { SiteHeaderSectionNav } from "@/components/site-header-section-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { PALETTE_COOKIE, parsePaletteId } from "@/lib/palette";
-import { showHomeProjectsSection } from "@/lib/site-flags";
 import { cn } from "@/lib/utils";
 
 export async function SiteHeader({
   resumePrimaryHref,
   showAdminLink,
+  showHomeProjectsSection = true,
 }: {
   resumePrimaryHref: string;
   showAdminLink?: boolean;
+  showHomeProjectsSection?: boolean;
 }) {
   const t = await getTranslations();
   const palette = parsePaletteId(

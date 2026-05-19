@@ -13,6 +13,7 @@ export type Profile = {
   resume_override_path: string | null;
   social_github: string | null;
   social_linkedin: string | null;
+  show_home_projects_section: boolean;
 };
 
 export type StackGroup = {

@@ -511,6 +511,22 @@ export async function updateProject(formData: FormData) {
   revalidatePath(`/${locale}/admin/projects`);
 }
 
+export async function setHomeProjectsSectionVisible(formData: FormData) {
+  const locale = String(formData.get("locale") ?? "en");
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("profile")
+    .update({
+      show_home_projects_section: formCheckboxOn(formData, "show_on_site"),
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", 1);
+  if (error) throw error;
+
+  revalidatePath(`/${locale}`);
+  revalidatePath(`/${locale}/admin/projects`);
+}
+
 export async function setProjectShowOnSite(formData: FormData) {
   const locale = String(formData.get("locale") ?? "en");
   const id = String(formData.get("id") ?? "");

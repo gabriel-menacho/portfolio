@@ -123,6 +123,9 @@
     "cleared": "Cleared",
     "showOnSite": "Show on site",
     "hiddenFromSite": "Hidden from site",
+    "homeProjectsSection": "Homepage projects section",
+    "homeProjectsSectionHint": "Controls the projects block on the landing page and the Projects nav link.",
+    "homeProjectsSectionHidden": "Hidden from homepage and navigation",
     "error": "Something went wrong",
     "formErrors": {
       "generic": "Could not complete that. Check your connection and try again.",

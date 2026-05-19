@@ -19,7 +19,11 @@ export async function getProfile(): Promise<Profile | null> {
     .eq("id", 1)
     .maybeSingle();
   if (error || !data) return null;
-  return data as Profile;
+  const profile = data as Profile & { show_home_projects_section?: boolean };
+  return {
+    ...profile,
+    show_home_projects_section: profile.show_home_projects_section !== false,
+  };
 }
 
 export async function getStack(): Promise<
