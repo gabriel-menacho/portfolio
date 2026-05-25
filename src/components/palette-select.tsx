@@ -7,12 +7,15 @@ import { persistPaletteId } from "@/app/actions/palette-cookie";
 import { type PaletteId, PALETTE_IDS } from "@/lib/palette";
 import { cn } from "@/lib/utils";
 
-const PALETTE_LABEL_KEYS: Record<PaletteId, "nameDefault" | "nameEmber" | "nameViolet"> =
-  {
-    default: "nameDefault",
-    ember: "nameEmber",
-    violet: "nameViolet",
-  };
+const PALETTE_LABEL_KEYS: Record<
+  PaletteId,
+  "nameVerdict" | "nameDefault" | "nameEmber" | "nameViolet"
+> = {
+  verdict: "nameVerdict",
+  default: "nameDefault",
+  ember: "nameEmber",
+  violet: "nameViolet",
+};
 
 export function PaletteSelect({ defaultPalette }: { defaultPalette: PaletteId }) {
   const t = useTranslations("palette");
