@@ -7,13 +7,14 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const LEGISFLOW_REPO_URL = "https://github.com/gabriel-menacho/legisflow";
+const LEGISFLOW_VIDEO_SRC = `/projects/legisflow/${encodeURIComponent("LegisFlow - promotional video.mp4")}`;
 
 type LocalizedProjectCopy = {
   title: string;
   description: string;
   highlights: string[];
-  localNote: string;
+  videoTitle: string;
+  videoDescription: string;
   eyebrow: string;
 };
 
@@ -23,39 +24,42 @@ const projectCopy: Record<Locale, LocalizedProjectCopy> = {
     eyebrow: "Legal-tech SaaS",
     description:
       "LegisFlow is a legal-tech SaaS monorepo with a marketing site, firm portal, AI assistant (RAG), and workflow automation for law firms.",
+    videoTitle: "Product walkthrough",
+    videoDescription:
+      "This walkthrough shows how LegisFlow brings together a public marketing site, a secure firm portal, an AI assistant grounded in firm documents, and workflow automation—so law firms can manage clients, cases, and knowledge in one product instead of juggling separate tools.",
     highlights: [
       "Lerna + npm workspaces: Next.js 15 marketing and portal, shared TypeScript types.",
       "FastAPI backend with Pydantic AI, pgvector document RAG, and workflow triggers.",
       "Docker Compose stack with PostgreSQL, Ollama, and pluggable LLM providers (OpenAI, Anthropic, OpenRouter).",
     ],
-    localNote:
-      "The MVP runs locally via Docker Compose (see the repository README for setup and demo credentials).",
   },
   es: {
     title: "LegisFlow",
     eyebrow: "SaaS legal-tech",
     description:
       "LegisFlow es un monorepo SaaS legal-tech con sitio de marketing, portal para bufetes, asistente IA (RAG) y automatizacion de flujos de trabajo.",
+    videoTitle: "Recorrido del producto",
+    videoDescription:
+      "Este video muestra como LegisFlow integra un sitio de marketing publico, un portal seguro para bufetes, un asistente IA basado en documentos del despacho y automatizacion de flujos, para que los bufetes gestionen clientes, casos y conocimiento en un solo producto.",
     highlights: [
       "Lerna + npm workspaces: marketing y portal en Next.js 15, tipos TypeScript compartidos.",
       "Backend FastAPI con Pydantic AI, RAG de documentos con pgvector y disparadores de flujos.",
       "Stack Docker Compose con PostgreSQL, Ollama y proveedores LLM configurables (OpenAI, Anthropic, OpenRouter).",
     ],
-    localNote:
-      "El MVP se ejecuta en local con Docker Compose (consulta el README del repositorio para configuracion y credenciales demo).",
   },
   pt: {
     title: "LegisFlow",
     eyebrow: "SaaS legal-tech",
     description:
       "LegisFlow e um monorepo SaaS legal-tech com site de marketing, portal para escritorios, assistente IA (RAG) e automacao de fluxos de trabalho.",
+    videoTitle: "Tour pelo produto",
+    videoDescription:
+      "Este video mostra como o LegisFlow reune site de marketing, portal seguro para escritorios, assistente IA com base em documentos do escritorio e automacao de fluxos—para que escritorios gerenciem clientes, casos e conhecimento em um unico produto.",
     highlights: [
       "Lerna + npm workspaces: marketing e portal em Next.js 15, tipos TypeScript compartilhados.",
       "Backend FastAPI com Pydantic AI, RAG de documentos com pgvector e gatilhos de fluxos.",
       "Stack Docker Compose com PostgreSQL, Ollama e provedores LLM configuraveis (OpenAI, Anthropic, OpenRouter).",
     ],
-    localNote:
-      "O MVP roda localmente via Docker Compose (veja o README do repositorio para setup e credenciais demo).",
   },
 };
 
@@ -118,11 +122,31 @@ export default async function LegisflowProjectPage({ params }: Props) {
           </p>
         </div>
 
-        <div className="border-outline-variant/20 bg-surface-container rounded-sm border p-6 md:p-8">
-          <p className="text-on-surface text-sm leading-relaxed md:text-base">
-            {copy.localNote}
-          </p>
-        </div>
+        <section
+          aria-labelledby="legisflow-video-heading"
+          className="border-outline-variant/20 bg-surface-container flex flex-col gap-4 rounded-sm border p-6 md:gap-5 md:p-8"
+        >
+          <div className="space-y-2">
+            <h2
+              className="font-headline text-2xl font-semibold"
+              id="legisflow-video-heading"
+            >
+              {copy.videoTitle}
+            </h2>
+            <p className="text-on-surface-variant text-sm leading-relaxed md:text-base">
+              {copy.videoDescription}
+            </p>
+          </div>
+          <div className="bg-surface-container-lowest aspect-video w-full overflow-hidden rounded-sm">
+            <video
+              className="size-full object-contain"
+              controls
+              playsInline
+              preload="metadata"
+              src={LEGISFLOW_VIDEO_SRC}
+            />
+          </div>
+        </section>
 
         <section className="grid gap-6 md:grid-cols-[1fr_auto] md:items-start">
           <div className="space-y-3">
@@ -136,14 +160,6 @@ export default async function LegisflowProjectPage({ params }: Props) {
             </ul>
           </div>
           <div className="flex flex-col gap-3">
-            <a
-              className="bg-surface-container-highest text-on-surface hover:bg-surface-container inline-flex items-center justify-center rounded-sm px-4 py-2 text-sm font-medium"
-              href={LEGISFLOW_REPO_URL}
-              rel="noreferrer"
-              target="_blank"
-            >
-              View repository
-            </a>
             <Link
               className="border-outline text-on-surface hover:bg-surface-container inline-flex items-center justify-center rounded-sm border px-4 py-2 text-sm font-medium"
               href={`/${loc}`}
