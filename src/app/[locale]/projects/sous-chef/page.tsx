@@ -8,29 +8,86 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const SCREENSHOT_WIDTH = 1440;
-const SCREENSHOT_HEIGHT = 900;
-
 type Screenshot = {
   src: string;
   titleKey: keyof LocalizedScreenshotCopy;
+  width: number;
+  height: number;
 };
 
 const screenshots: Screenshot[] = [
-  { src: "/projects/sous-chef/01-landing.png", titleKey: "landing" },
-  { src: "/projects/sous-chef/02-dashboard.png", titleKey: "dashboard" },
-  { src: "/projects/sous-chef/03-recipe-new.png", titleKey: "recipeNew" },
-  { src: "/projects/sous-chef/04-recipe-detail.png", titleKey: "recipeDetail" },
-  { src: "/projects/sous-chef/05-mise-en-place.png", titleKey: "miseEnPlace" },
+  {
+    src: "/projects/sous-chef/01-landing.png",
+    titleKey: "landing",
+    width: 1440,
+    height: 900,
+  },
+  {
+    src: "/projects/sous-chef/02-dashboard.png",
+    titleKey: "dashboard",
+    width: 1440,
+    height: 900,
+  },
+  {
+    src: "/projects/sous-chef/03-recipe-new.png",
+    titleKey: "recipeNew",
+    width: 1440,
+    height: 900,
+  },
+  {
+    src: "/projects/sous-chef/04-recipe-detail.png",
+    titleKey: "recipeDetail",
+    width: 1440,
+    height: 2006,
+  },
+  {
+    src: "/projects/sous-chef/05-mise-en-place.png",
+    titleKey: "miseEnPlace",
+    width: 1440,
+    height: 900,
+  },
+  {
+    src: "/projects/sous-chef/06-service-drawer.png",
+    titleKey: "serviceDrawer",
+    width: 1440,
+    height: 900,
+  },
   {
     src: "/projects/sous-chef/06-service-timeline.png",
     titleKey: "serviceTimeline",
+    width: 1440,
+    height: 1372,
   },
-  { src: "/projects/sous-chef/07-inventory.png", titleKey: "inventory" },
-  { src: "/projects/sous-chef/08-techniques.png", titleKey: "techniques" },
-  { src: "/projects/sous-chef/09-orchestrator.png", titleKey: "orchestrator" },
-  { src: "/projects/sous-chef/10-settings.png", titleKey: "settings" },
-  { src: "/projects/sous-chef/11-architecture.png", titleKey: "architecture" },
+  {
+    src: "/projects/sous-chef/07-inventory.png",
+    titleKey: "inventory",
+    width: 1440,
+    height: 1314,
+  },
+  {
+    src: "/projects/sous-chef/08-techniques.png",
+    titleKey: "techniques",
+    width: 1440,
+    height: 1894,
+  },
+  {
+    src: "/projects/sous-chef/09-orchestrator.png",
+    titleKey: "orchestrator",
+    width: 1440,
+    height: 900,
+  },
+  {
+    src: "/projects/sous-chef/10-settings.png",
+    titleKey: "settings",
+    width: 1440,
+    height: 900,
+  },
+  {
+    src: "/projects/sous-chef/11-architecture.png",
+    titleKey: "architecture",
+    width: 1440,
+    height: 900,
+  },
 ];
 
 type LocalizedScreenshotCopy = {
@@ -39,6 +96,7 @@ type LocalizedScreenshotCopy = {
   recipeNew: { title: string; caption: string };
   recipeDetail: { title: string; caption: string };
   miseEnPlace: { title: string; caption: string };
+  serviceDrawer: { title: string; caption: string };
   serviceTimeline: { title: string; caption: string };
   inventory: { title: string; caption: string };
   techniques: { title: string; caption: string };
@@ -100,6 +158,11 @@ const projectCopy: Record<Locale, LocalizedProjectCopy> = {
         title: "Mise en place",
         caption:
           "Prep checklist gates service start — complete all prep tasks before the live cooking timeline begins.",
+      },
+      serviceDrawer: {
+        title: "Technique drawer",
+        caption:
+          "During live service, open the technique drawer for the active step with a Serious Eats search link and step context.",
       },
       serviceTimeline: {
         title: "Service timeline",
@@ -174,6 +237,11 @@ const projectCopy: Record<Locale, LocalizedProjectCopy> = {
         caption:
           "Lista de preparacion bloquea el inicio del servicio — completa todas las tareas de prep antes de la linea de tiempo en vivo.",
       },
+      serviceDrawer: {
+        title: "Panel de tecnica",
+        caption:
+          "Durante el servicio en vivo, abre el panel de tecnica del paso activo con enlace de busqueda en Serious Eats y contexto del paso.",
+      },
       serviceTimeline: {
         title: "Linea de tiempo de servicio",
         caption:
@@ -246,6 +314,11 @@ const projectCopy: Record<Locale, LocalizedProjectCopy> = {
         title: "Mise en place",
         caption:
           "Checklist de preparo bloqueia o inicio do servico — complete todas as tarefas de prep antes da linha do tempo ao vivo.",
+      },
+      serviceDrawer: {
+        title: "Painel de tecnica",
+        caption:
+          "Durante o servico ao vivo, abra o painel de tecnica do passo ativo com link de busca no Serious Eats e contexto do passo.",
       },
       serviceTimeline: {
         title: "Linha do tempo de servico",
@@ -375,10 +448,10 @@ export default async function SousChefProjectPage({ params }: Props) {
                   <Image
                     alt={screenCopy.title}
                     className="h-auto w-full"
-                    height={SCREENSHOT_HEIGHT}
+                    height={screenshot.height}
                     sizes="(min-width: 1024px) 896px, 100vw"
                     src={screenshot.src}
-                    width={SCREENSHOT_WIDTH}
+                    width={screenshot.width}
                   />
                 </div>
               </figure>
